@@ -1,0 +1,78 @@
+.BaseView {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .map_MapView,
+    .map_SceneView {
+        width: 100%;
+        height: 100%;
+    }
+
+    .map_ToolBar {
+        position: absolute;
+        right: 15px;
+        bottom: 30px;
+
+        button {
+            padding: 4px;
+            width: 32px;
+            color: #979797;
+
+            &:hover,
+            &:focus {
+                color: #dfdfdf;
+            }
+
+            &,
+            &:hover,
+            &:focus {
+                background-color: #303030cc;
+            }
+
+            border: none;
+
+            img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        .map_SceneSwitch {
+            button {
+                padding: 2px 2px;
+                width: 32px;
+            }
+        }
+
+        .map_BasemapSwitchPopover {
+
+        }
+    }
+}
+
+.map_ToolbarOverlay {
+
+    .ant-popover-inner,
+    .ant-popover-arrow-content {
+        background-color: #303030cc;
+
+        .ant-popover-inner-content {
+            color: #979797;
+        }
+    }
+
+    button {
+        border: 1px solid #303030;
+
+        &.active,
+        &:hover.active {
+            border: 1px solid #eed40c;
+            color: #eed40c;
+        }
+
+        &:hover {
+            border: 1px solid #eed40c;
+        }
+    }
+}

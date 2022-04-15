@@ -1,0 +1,49 @@
+{
+  "name": "evolution-of-transportation",
+  "description": "中国交通网动态演进可视化模块",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@arcgis/core": "^4.22.2",
+    "@craco/craco": "^6.4.3",
+    "antd": "^4.18.5",
+    "craco-less": "^2.0.0",
+    "immer": "^9.0.12",
+    "lodash": "^4.17.21",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.0",
+    "redux": "^4.1.2",
+    "styled-components": "^5.3.3"
+  },
+  "scripts": {
+    "dev": "craco  start",
+    "build": "craco  build",
+    "test": "craco  test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^10.2.4",
+    "html-webpack-plugin": "^5.5.0"
+  }
+}
