@@ -10,19 +10,19 @@ export function useSceneView(
     props,
     mapRef,
 ) {
-    const { map, spatialReference } = props;
+    const { map, spatialReference, center } = props;
     useEffect(() => {
         if(mapRef.current){
             const view = new SceneView({
                 container: mapRef.current,
                 map: map,
                 scale: 50000,
-                center: [108.17, 31.78],
+                center,
                 spatialReference: spatialReference,
             });
             view.ui.empty("top-left");
         }
-    }, [mapRef, map, spatialReference]);
+    }, [mapRef, map, spatialReference, center]);
 }
 
 export function useBasemap(props) {
@@ -59,17 +59,17 @@ export function useMapView(
     props,
     mapRef,
 ) {
-    const { map, spatialReference } = props;
+    const { map, spatialReference, center } = props;
     useEffect(() => {
         if(mapRef.current){
             const view = new MapView({
                 container: mapRef.current,
                 map: map,
                 scale: 50000,
-                center: [108.17, 31.78],
+                center,
                 spatialReference: spatialReference,
             });
             view.ui.empty("top-left");
         }
-    }, [mapRef, map, spatialReference]);
+    }, [mapRef, map, spatialReference, center]);
 }

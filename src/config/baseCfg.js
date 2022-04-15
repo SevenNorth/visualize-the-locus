@@ -46,7 +46,7 @@ const baseCfg = {
             type: 'none',
         },
     },
-    center: [108.17, 31.78]
+    center: [104.05657061584817, 30.762593372099293],
 }
 
 export default baseCfg;
