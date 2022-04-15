@@ -1,6 +1,6 @@
 {
-  "name": "evolution-of-transportation",
-  "description": "中国交通网动态演进可视化模块",
+  "name": "visualize-the-locus",
+  "description": "COVID-19确诊病例轨迹可视化",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
