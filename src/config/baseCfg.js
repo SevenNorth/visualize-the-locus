@@ -1,6 +1,6 @@
 const baseCfg = {
     spatialReference: {
-        wkid: 3857,
+        wkid: 3857, // 同102100 即WGS-84
     },
     basemaps: [{
             id: 'geoq-color',
@@ -46,6 +46,7 @@ const baseCfg = {
             type: 'none',
         },
     },
+    center: [108.17, 31.78]
 }
 
 export default baseCfg;

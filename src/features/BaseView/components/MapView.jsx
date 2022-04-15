@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { useRef } from 'react';
 import { useWidgets } from '../../../utils'
-import { useMapView } from '../common';
+import { useMapView } from '../hooks';
 import { view } from '../../../redux'
 
 const defaultWidgets = {
@@ -26,11 +26,12 @@ const SceneView = (props) => {
 export default connect(
     state => {
         const viewState = _.get(state, view.featureKey);
-        const { basemap } = viewState;
+        const { basemap, center } = viewState;
         const map = view.map;
         return {
             map,
             basemap,
+            center,
         }
     }
 )(SceneView)

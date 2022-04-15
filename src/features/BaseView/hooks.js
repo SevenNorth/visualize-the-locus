@@ -73,13 +73,3 @@ export function useMapView(
         }
     }, [mapRef, map, spatialReference]);
 }
-
-export function useLayers(props) {
-    const { layers, map } = props;
-    useEffect(()=>{
-        _.each(layers, lyr => {
-            const layer = getLayer(lyr);
-            map.add(layer);
-        })
-    }, [layers, map])
-}

@@ -12,6 +12,7 @@ class ViewFeature {
             basemap: baseCfg.basemaps[0],
             ground: baseCfg.ground,
             spatialReference: baseCfg.spatialReference,
+            center: baseCfg.center,
             isScene: true,
         };
         this.map = new Map({
