@@ -21,6 +21,7 @@ export function useSceneView(
                 spatialReference: spatialReference,
             });
             view.ui.empty("top-left");
+            view.ui.add(['zoom','compass'], 'bottom-right')
         }
     }, [mapRef, map, spatialReference, center]);
 }
@@ -70,6 +71,7 @@ export function useMapView(
                 spatialReference: spatialReference,
             });
             view.ui.empty("top-left");
+            view.ui.add(['zoom','compass'], 'bottom-right')
         }
     }, [mapRef, map, spatialReference, center]);
 }

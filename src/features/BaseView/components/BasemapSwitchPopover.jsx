@@ -27,13 +27,13 @@ const BasemapSwitchPopover = (props) => {
             <Popover
                 trigger='click'
                 overlayClassName="map_ToolbarOverlay"
-                placement='left'
+                placement='leftBottom'
                 visible={visible}
                 onVisibleChange={setVisible}
                 content={
                     _.map(basemaps, basemap => {
                         const isActive = current?.id === basemap.id;
-                        const { title } = basemap;
+                        const { title, thumbnail } = basemap;
                         return (
                             <Button
                                 key={basemap.id}
@@ -45,13 +45,15 @@ const BasemapSwitchPopover = (props) => {
                                 }}
                                 ghost
                             >
-                                { basemap.title }
+                                <img src={thumbnail} alt={title} />
                             </Button>
                         );
                     })
                 }
             >
-                <Button ghost>{current.title}</Button>
+                <Button ghost>
+                    <img src={current.thumbnail} alt={current.title} />
+                </Button>
             </Popover>
         </Container>
     );

@@ -1,10 +1,15 @@
+import color from '../assets/images/color.png'
+import dark from '../assets/images/dark.png'
+import gray from '../assets/images/gray.png'
+
 const baseCfg = {
     spatialReference: {
         wkid: 3857, // 同102100 即WGS-84
     },
     basemaps: [{
             id: 'geoq-color',
-            title: '彩色',
+            title: '彩色版',
+            thumbnail: color,
             baseLayers: [{
                 id: 'geoq-layer-color',
                 title: 'Geoq彩色版底图',
@@ -14,7 +19,8 @@ const baseCfg = {
         },
         {
             id: 'geoq-dark',
-            title: '蓝黑',
+            title: '蓝黑版',
+            thumbnail: dark,
             baseLayers: [{
                 id: 'geoq-layer-dark',
                 title: 'Geoq蓝黑版底图',
@@ -24,7 +30,8 @@ const baseCfg = {
         },
         {
             id: 'geoq-gray',
-            title: '灰色',
+            title: '灰色版',
+            thumbnail: gray,
             baseLayers: [{
                 id: 'geoq-layer-dark',
                 title: 'Geoq灰色版底图',
