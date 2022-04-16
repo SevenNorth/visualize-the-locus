@@ -12,13 +12,20 @@ class ViewFeature {
             basemap: baseCfg.basemaps[0],
             ground: baseCfg.ground,
             spatialReference: baseCfg.spatialReference,
-            center: baseCfg.center,
+            viewpoint:baseCfg.viewpoint,
             isScene: true,
+            isSceneViewReady:false,
+            isMapViewReady:false,
+            isViewReady:false,
         };
         this.map = new Map({
             basemap: undefined,
             ground: undefined,
         });
+        this.viewCache = {
+            mapView: null,
+            sceneView: null,
+        };
     }
 
     actionKeys = {
@@ -26,6 +33,10 @@ class ViewFeature {
         SET_IS_SCENE: `${this.featureKey}_SET_IS_SCENE`,
         SET_GROUND: `${this.featureKey}_SET_GROUND`,
         SET_BASEMAP: `${this.featureKey}_SET_BASEMAP`,
+        SET_SCENEVIEW_READY: `${this.featureKey}_SET_SCENEVIEW_READY`,
+        SET_MAPVIEW_READY: `${this.featureKey}_SET_MAPVIEW_READY`,
+        DESTROY_MAPVIEW: `${this.featureKey}_DESTROY_MAPVIEW`,
+        DESTROY_SCENEVIEW: `${this.featureKey}_DESTROY_SCENEVIEW`,
     }
 
     genReducer(){
@@ -38,6 +49,23 @@ class ViewFeature {
                         break;
                     case this.actionKeys.SET_BASEMAP:
                         newState.basemap = action.basemap;
+                        break;
+                    case this.actionKeys.SET_VIEWPOINT:
+                        newState.viewpoint = action.viewpoint;
+                        break;
+                    case this.actionKeys.SET_MAPVIEW_READY:
+                        newState.isMapViewReady = true;
+                        newState.isViewReady = true;
+                        break;
+                    case this.actionKeys.SET_SCENEVIEW_READY:
+                        newState.isSceneViewReady = true;
+                        newState.isViewReady = true;
+                        break;
+                    case this.actionKeys.DESTROY_MAPVIEW:
+                        newState.isMapViewReady = false;
+                        break;
+                    case this.actionKeys.DESTROY_SCENEVIEW:
+                        newState.isSceneViewReady = false;
                         break;
                     default:
                         break;
@@ -58,6 +86,41 @@ class ViewFeature {
             type: this.actionKeys.SET_BASEMAP,
             basemap,
         }
+    }
+
+    setViewpoint(viewpoint){
+        return {
+            type: this.actionKeys.SET_VIEWPOINT,
+            viewpoint,
+        }
+    }
+
+    setMapViewReady(mapView) {
+        this.viewCache.mapView = mapView;
+        return {
+            type: this.actionKeys.SET_MAPVIEW_READY,
+        };
+    }
+
+    setSceneViewReady(sceneView): void {
+        this.viewCache.sceneView = sceneView;
+        return {
+            type: this.actionKeys.SET_SCENEVIEW_READY,
+        };
+    }
+
+    destroyMapView() {
+        this.viewCache.mapView = null;
+        return {
+            type: this.actionKeys.DESTROY_MAPVIEW,
+        };
+    }
+
+    destroySceneView() {
+        this.viewCache.sceneView = null;
+        return {
+            type: this.actionKeys.DESTROY_SCENEVIEW,
+        };
     }
 }
 

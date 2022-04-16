@@ -53,7 +53,31 @@ const baseCfg = {
             type: 'none',
         },
     },
-    center: [104.05657061584817, 30.762593372099293],
+    viewpoint: {
+        targetGeometry: {
+            spatialReference: {
+                latestWkid: 3857,
+                wkid: 102100
+            },
+            x: 11584328.438823506,
+            y: 3588303.2091660225,
+            z: 497.4389120414853,
+            type: 'point'
+        },
+        camera: {
+            position: {
+                spatialReference: {
+                    latestWkid: 3857,
+                    wkid: 102100
+                },
+                x: 11584328.438823506,
+                y: 3587993.191848825,
+                z: 31206.609455426224
+            },
+            heading: 0,
+            tilt: 0.4976056235226675
+        },
+    }
 }
 
 export default baseCfg;
