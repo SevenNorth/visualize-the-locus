@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useWidgets } from '../../utils'
 import BaseView from '../../features/BaseView/components/index';
+import LeftPanel from '../../features/Panel/components/LeftPanel';
 
 const defaultWidgets = {
   Container: styled.div`
@@ -16,6 +17,7 @@ const Main = () => {
   const { Container } = widgets;
   return <Container>
     <BaseView />
+    <LeftPanel />
   </Container>;
 }
 
