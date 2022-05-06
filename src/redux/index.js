@@ -2,10 +2,10 @@ import {
     combineReducers
 } from 'redux';
 import ViewFeature from '../features/BaseView/ViewFeature';
-import LayerFeature from '../features/Layer/LayerFeature';
+import LayersFeature from '../features/Layers/LayersFeature';
 
 const view = new ViewFeature();
-const layer = new LayerFeature();
+const layer = new LayersFeature();
 export default combineReducers({
     [view.featureKey]: view.genReducer(),
     [layer.featureKey]: layer.genReducer(),
