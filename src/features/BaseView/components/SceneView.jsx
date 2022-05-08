@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import _ from 'lodash';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { useRef } from 'react';
 import { useWidgets } from '../../../utils'
+import { view, layers } from '../../../redux'
 import { useSceneView, useGround, useViewpoint } from '../hooks';
-import { view } from '../../../redux'
+import { useLayers } from '../../Layers/hooks'
 
 const defaultWidgets = {
     Container: styled.div`
@@ -20,6 +21,7 @@ const SceneView = (props) => {
     useGround(props);
     useSceneView(props, mapRef);
     useViewpoint(props, props.sceneView)
+    useLayers(props, props.sceneView)
     const { Container } = widgets;
     return <Container ref = {mapRef} />;
 }
@@ -27,7 +29,9 @@ const SceneView = (props) => {
 export default connect(
     state => {
         const viewState = _.get(state, view.featureKey);
+        const layersState = _.get(state, layers.featureKey);
         const { ground, basemap, viewpoint } = viewState;
+        const { layers: reduxLayers } = layersState
         const map = view.map;
         const id = `${view.featureKey}_SceneView`;
         return {
@@ -37,6 +41,7 @@ export default connect(
             viewpoint,
             id,
             sceneView: view.viewCache.sceneView,
+            layers: reduxLayers,
         }
     },
     dispatch => {

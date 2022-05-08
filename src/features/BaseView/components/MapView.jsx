@@ -3,8 +3,9 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { useRef } from 'react';
 import { useWidgets } from '../../../utils'
+import { view, layers } from '../../../redux'
 import { useMapView, useViewpoint } from '../hooks';
-import { view } from '../../../redux'
+import { useLayers } from '../../Layers/hooks'
 
 const defaultWidgets = {
     Container: styled.div`
@@ -19,6 +20,7 @@ const MapView = (props) => {
     
     useMapView(props, mapRef);
     useViewpoint(props, props.mapView)
+    useLayers(props, props.mapView)
     const { Container } = widgets;
     return <Container ref = {mapRef} />;
 }
@@ -26,7 +28,9 @@ const MapView = (props) => {
 export default connect(
     state => {
         const viewState = _.get(state, view.featureKey);
+        const layersState = _.get(state, layers.featureKey);
         const { basemap, viewpoint } = viewState;
+        const { layers: reduxLayers } = layersState
         const map = view.map;
         const id = `${view.featureKey}_MapView`;
         return {
@@ -35,6 +39,7 @@ export default connect(
             viewpoint,
             id,
             mapView: view.viewCache.mapView,
+            layers: reduxLayers
         }
     },
     dispatch => {

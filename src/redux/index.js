@@ -5,13 +5,13 @@ import ViewFeature from '../features/BaseView/ViewFeature';
 import LayersFeature from '../features/Layers/LayersFeature';
 
 const view = new ViewFeature();
-const layer = new LayersFeature();
+const layers = new LayersFeature();
 export default combineReducers({
     [view.featureKey]: view.genReducer(),
-    [layer.featureKey]: layer.genReducer(),
+    [layers.featureKey]: layers.genReducer(),
 })
 
 export {
     view,
-    layer,
+    layers,
 }
