@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components';
-import { Button, Popover } from 'antd';
 import { connect } from 'react-redux';
+import { Tabs } from 'antd';
 
 import './index.less';
 import { useWidgets } from '../../../utils'
 import BasePanel from '../../../components/BasePanel';
-import { layers } from '../../../redux';
+
 
 const defaultWidgets = {
     Container: styled.div`
