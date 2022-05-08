@@ -17,8 +17,6 @@ const className = 'LeftPanel';
 
 const LeftPanel = (props) => {
 
-    const { addLayers, removeLayers } = props;
-
     const widgets = useWidgets(
         className,
         defaultWidgets,
@@ -28,21 +26,6 @@ const LeftPanel = (props) => {
     return (
         <Container>
             <BasePanel >
-            <Button 
-                onClick={()=>{
-                    addLayers([{
-                        id: 'test-lyr',
-                        layerType: 'FeatureLayer',
-                        title: 'Cities',
-                        url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0'
-                    }])
-                }}
-            >添加图层</Button>
-            <Button 
-                onClick={()=>{
-                    removeLayers(['test-lyr'])
-                }}
-            >移除图层</Button>
             </BasePanel>
         </Container>
     )
@@ -53,14 +36,7 @@ const connectedLeftPanel = connect(
         return {}
     },
     dispatch => {
-        return {
-            addLayers: (lyrs) => {
-                dispatch(layers.add(lyrs))
-            },
-            removeLayers: (lyrs) => {
-                dispatch(layers.rmLayers(lyrs))
-            },
-        }
+        return {}
     }
     )(LeftPanel)
 
