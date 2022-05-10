@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Tabs } from 'antd';
+// import { Tabs } from 'antd';
 
 import './index.less';
 import { useWidgets } from '../../../utils'
