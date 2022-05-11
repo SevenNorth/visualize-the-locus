@@ -3,9 +3,10 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { useRef } from 'react';
 import { useWidgets } from '../../../utils'
-import { view, layers } from '../../../redux'
+import { view, layers, graphics } from '../../../redux'
 import { useSceneView, useGround, useViewpoint } from '../hooks';
-import { useLayers } from '../../Layers/hooks'
+import { useLayers } from '../../Layers/hooks';
+import { useGraphics } from '../../Graphics/hooks';
 
 const defaultWidgets = {
     Container: styled.div`
@@ -20,8 +21,9 @@ const SceneView = (props) => {
     
     useGround(props);
     useSceneView(props, mapRef);
-    useViewpoint(props, props.sceneView)
-    useLayers(props, props.sceneView)
+    useViewpoint(props, props.sceneView);
+    useLayers(props, props.sceneView);
+    useGraphics(props, props.sceneView);
     const { Container } = widgets;
     return <Container ref = {mapRef} />;
 }
@@ -30,10 +32,14 @@ export default connect(
     state => {
         const viewState = _.get(state, view.featureKey);
         const layersState = _.get(state, layers.featureKey);
+        const graphicsState = _.get(state, layers.featureKey);
         const { ground, basemap, viewpoint } = viewState;
-        const { layers: reduxLayers } = layersState
+        const { layers: reduxLayers } = layersState;
+        const { graphics: reduxGraphics } = graphicsState;
         const map = view.map;
         const id = `${view.featureKey}_SceneView`;
+        const drawGrapgicsLayer = graphics.drawGrapgicsLayer;
+
         return {
             map,
             ground,
@@ -42,6 +48,8 @@ export default connect(
             id,
             sceneView: view.viewCache.sceneView,
             layers: reduxLayers,
+            graphics: reduxGraphics,
+            drawGrapgicsLayer,
         }
     },
     dispatch => {

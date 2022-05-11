@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import { getLayer } from '../../utils/layers/layerFactory'
+import { getLayer } from '../../utils'
 
 export function useLayers(props, view) {
     const [preLayers, setPreLayers] = useState()

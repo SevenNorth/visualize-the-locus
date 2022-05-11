@@ -4,7 +4,7 @@ import {
 import _ from "lodash";
 import SceneView from '@arcgis/core/views/SceneView';
 import MapView from '@arcgis/core/views/MapView';
-import { getBasemap, getGround } from "../../utils/layers/layerFactory";
+import { getBasemap, getGround } from "../../utils";
 import Viewpoint from '@arcgis/core/Viewpoint';
 
 export function useSceneView(
