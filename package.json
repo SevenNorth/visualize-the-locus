@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@arcgis/core": "~4.22.2",
+    "@arcgis/core": "^4.22.2",
     "@craco/craco": "^6.4.3",
     "antd": "^4.18.5",
     "craco-less": "^2.0.0",
@@ -32,9 +32,12 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 2 safari major versions",
+      "last 2 edge major versions",
+      "last 2 iOS major versions",
+      "Firefox ESR"
     ],
     "development": [
       "last 1 chrome version",
