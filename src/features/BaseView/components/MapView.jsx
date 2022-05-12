@@ -31,7 +31,7 @@ export default connect(
     state => {
         const viewState = _.get(state, view.featureKey);
         const layersState = _.get(state, layers.featureKey);
-        const graphicsState = _.get(state, layers.featureKey);
+        const graphicsState = _.get(state, graphics.featureKey);
         const { basemap, viewpoint } = viewState;
         const { layers: reduxLayers } = layersState;
         const { graphics: reduxGraphics } = graphicsState;
