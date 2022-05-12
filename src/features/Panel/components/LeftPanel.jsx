@@ -18,7 +18,7 @@ const className = 'LeftPanel';
 
 const LeftPanel = (props) => {
 
-    const { addGraphics } = props;
+    const { addGraphics, remove } = props;
 
     const widgets = useWidgets(
         className,
@@ -69,7 +69,7 @@ const LeftPanel = (props) => {
             </button>
             <button
                 onClick={()=>{
-
+                    remove(['xxxxx'])
                 }}
             >
                 rm
@@ -87,6 +87,9 @@ const connectedLeftPanel = connect(
         return {
             addGraphics: (g)=>{
                 dispatch(graphics.add(g))
+            },
+            remove: (g)=>{
+                dispatch(graphics.remove(g))
             }
         }
     }
