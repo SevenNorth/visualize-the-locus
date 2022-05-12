@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useWidgets } from '../../utils'
 import BaseView from '../../features/BaseView/components/index';
 import LeftPanel from '../../features/Panel/components/LeftPanel';
+import FooterInfo from '../../components/FooterInfo';
 
 const defaultWidgets = {
   Container: styled.div`
@@ -18,6 +19,7 @@ const Main = () => {
   return <Container>
     <BaseView />
     <LeftPanel />
+    <FooterInfo />
   </Container>;
 }
 
