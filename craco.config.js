@@ -1,5 +1,5 @@
-const CracoLessPlugin = require('craco-less');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const CracoLessPlugin = require('craco-less');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const CopyPlugin = require('copy-webpack-plugin');
 // const _ = require('lodash')
 // const path = require('path')
@@ -7,20 +7,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const extraConfigFiles = ['baseCfg.js']
 
 module.exports = {
-    plugins: [{
-        plugin: CracoLessPlugin,
-        options: {
-            lessLoaderOptions: {
-                lessOptions: {
-                    modifyVars: {
-                        '@primary-color': '#1DA57A',
-                        '@text-color': 'rgba(255, 255, 255, 1)',
-                    },
-                    javascriptEnabled: true,
-                },
-            },
-        },
-    }, ],
+    plugins: [
+        // {
+        //     plugin: CracoLessPlugin,
+        //     options: {
+        //         lessLoaderOptions: {
+        //             lessOptions: {
+        //                 modifyVars: {
+        //                     // '@primary-color': '#1DA57A',
+        //                     // '@text-color': 'rgba(255, 255, 255, 1)',
+        //                 },
+        //                 javascriptEnabled: true,
+        //             },
+        //         },
+        //     },
+        // }
+    ],
     // webpack: {
     //     configure: (webpackConfig) => {
     //         const { publicPath } = webpackConfig.output;
