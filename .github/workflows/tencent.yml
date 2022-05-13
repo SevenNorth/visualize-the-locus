@@ -18,12 +18,12 @@ jobs:
       - name: npm install
         run: npm install
         env:
-          CI: false
+          CI: true
       # npm run build
       - name: npm build
         run: npm run build
         env:
-          CI: false
+          CI: true
       # Deploy
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@v2.1.2
