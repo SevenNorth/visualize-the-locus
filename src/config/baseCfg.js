@@ -4,7 +4,8 @@ import gray from '../assets/images/gray.png'
 
 const baseCfg = {
     spatialReference: {
-        wkid: 3857, // 同102100 即WGS-84
+        // wkid: 3857, // 同102100 即WGS-84投影坐标
+        wkid: 4326
     },
     basemaps: [{
             id: 'geoq-color',
@@ -56,23 +57,21 @@ const baseCfg = {
     viewpoint: {
         targetGeometry: {
             spatialReference: {
-                latestWkid: 3857,
-                wkid: 102100
+                wkid: 4326
             },
-            x: 11584328.438823506,
-            y: 3588303.2091660225,
+            x: 104.06524658203125,
+            y: 30.64854572202601,
             z: 497.4389120414853,
             type: 'point'
         },
         camera: {
             position: {
                 spatialReference: {
-                    latestWkid: 3857,
-                    wkid: 102100
+                    wkid: 4326
                 },
-                x: 11584328.438823506,
-                y: 3587993.191848825,
-                z: 31206.609455426224
+                x: 104.06524658203125,
+                y: 30.64854572202601,
+                z: 31200.609455426224
             },
             heading: 0,
             tilt: 0.4976056235226675
