@@ -7,7 +7,7 @@ import './index.less';
 import { useWidgets } from '../../../utils'
 import BasePanel from '../../../components/BasePanel';
 
-import { graphics } from '../../../redux';
+// import { graphics } from '../../../redux';
 
 const { RangePicker } = DatePicker;
 

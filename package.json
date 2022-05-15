@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "copy-webpack-plugin": "^10.2.4",
+    "craco-less": "^2.0.0",
     "html-webpack-plugin": "^5.5.0"
   }
 }
