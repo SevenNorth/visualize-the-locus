@@ -32,7 +32,7 @@ export default connect(
         const viewState = _.get(state, view.featureKey);
         const layersState = _.get(state, layers.featureKey);
         const graphicsState = _.get(state, graphics.featureKey);
-        const { basemap, viewpoint } = viewState;
+        const { basemap, viewpoint, spatialReference } = viewState;
         const { layers: reduxLayers } = layersState;
         const { graphics: reduxGraphics } = graphicsState;
         const map = view.map;
@@ -43,6 +43,7 @@ export default connect(
             map,
             basemap,
             viewpoint,
+            spatialReference,
             id,
             mapView: view.viewCache.mapView,
             layers: reduxLayers,
