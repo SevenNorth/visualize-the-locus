@@ -1,0 +1,35 @@
+{
+    "source": "https://mp.weixin.qq.com/s/5JEwQvDPy-EHqP7dgcV2fQ",
+    "provincesList": [
+        {
+            "province": "重庆市",
+            "citiesList": [
+                {
+                    "city": "重庆市",
+                    "patientsList": [
+                        {
+                            "nickname": "无症状感染者37",
+                            "type": "确诊",
+                            "tracksList": [
+                                {
+                                    "date": "2022/5/9",
+                                    "geomtry": {
+                                        "type": "point",
+                                        "x": 1.2,
+                                        "y": 3.4
+                                    }
+                                },
+                                {
+                                    "date": "2022/5/10",
+                                    "geomtry": {
+                                        "type": "polyline"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
