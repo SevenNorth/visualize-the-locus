@@ -8,6 +8,17 @@ const baseCfg = {
         wkid: 4326
     },
     basemaps: [{
+            id: 'supermap',
+            title: '超图底图',
+            thumbnail: color,
+            baseLayers: [{
+                id: 'supermap-layer',
+                title: '超图底图',
+                layerType: 'MapImageLayer',
+                url: 'http://support.supermap.com.cn:8090/iserver/services/map-china400/arcgisrest/China_4326/MapServer',
+            }]
+        },
+        {
             id: 'geoq-color',
             title: '彩色版',
             thumbnail: color,
