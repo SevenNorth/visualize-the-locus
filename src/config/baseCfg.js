@@ -4,20 +4,10 @@ import gray from '../assets/images/gray.png'
 
 const baseCfg = {
     spatialReference: {
-        // wkid: 3857, // 同102100 即WGS-84投影坐标
-        wkid: 4326
+        wkid: 3857, // 同102100 即WGS-84椭球，web墨卡托投影
+        // wkid: 4326
     },
-    basemaps: [{
-            id: 'supermap',
-            title: '超图底图',
-            thumbnail: color,
-            baseLayers: [{
-                id: 'supermap-layer',
-                title: '超图底图',
-                layerType: 'MapImageLayer',
-                url: 'http://support.supermap.com.cn:8090/iserver/services/map-china400/arcgisrest/China_4326/MapServer',
-            }]
-        },
+    basemaps: [
         {
             id: 'geoq-color',
             title: '彩色版',
@@ -49,7 +39,7 @@ const baseCfg = {
                 title: 'Geoq灰色版底图',
                 layerType: 'TileLayer',
                 url: 'http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetGray/MapServer',
-            }, ],
+            }],
         },
     ],
     ground: {
@@ -68,21 +58,23 @@ const baseCfg = {
     viewpoint: {
         targetGeometry: {
             spatialReference: {
-                wkid: 4326
+                latestWkid: 3857,
+                wkid: 102100
             },
-            x: 104.06524658203125,
-            y: 30.64854572202601,
+            x: 11584328.438823506,
+            y: 3588303.2091660225,
             z: 497.4389120414853,
             type: 'point'
         },
         camera: {
             position: {
                 spatialReference: {
-                    wkid: 4326
+                    latestWkid: 3857,
+                    wkid: 102100
                 },
-                x: 104.06524658203125,
-                y: 30.64854572202601,
-                z: 31200.609455426224
+                x: 11584328.438823506,
+                y: 3587993.191848825,
+                z: 31206.609455426224
             },
             heading: 0,
             tilt: 0.4976056235226675
