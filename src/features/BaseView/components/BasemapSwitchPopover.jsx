@@ -5,8 +5,10 @@ import styled from 'styled-components';
 import { Button, Popover } from 'antd';
 import './index.less';
 import { useWidgets } from '../../../utils'
-import { view } from '../../../redux';
+import fm from '../../../redux';
 import baseCfg from '../../../config/baseCfg';
+
+const view = fm.getFeature('VIEW');
 
 const defaultWidgets = {
     Container: styled.div`

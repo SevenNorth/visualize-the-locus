@@ -4,7 +4,7 @@ import Map from "@arcgis/core/Map";
 import baseCfg from '../../config/baseCfg'
 
 class ViewFeature {
-    featureKey = 'VIEW';
+    key = 'VIEW';
     initialState;
     map;
     constructor(){
@@ -29,14 +29,14 @@ class ViewFeature {
     }
 
     actionKeys = {
-        SET_VIEWPOINT: `${this.featureKey}_SET_VIEWPOINT`,
-        SET_IS_SCENE: `${this.featureKey}_SET_IS_SCENE`,
-        SET_GROUND: `${this.featureKey}_SET_GROUND`,
-        SET_BASEMAP: `${this.featureKey}_SET_BASEMAP`,
-        SET_SCENEVIEW_READY: `${this.featureKey}_SET_SCENEVIEW_READY`,
-        SET_MAPVIEW_READY: `${this.featureKey}_SET_MAPVIEW_READY`,
-        DESTROY_MAPVIEW: `${this.featureKey}_DESTROY_MAPVIEW`,
-        DESTROY_SCENEVIEW: `${this.featureKey}_DESTROY_SCENEVIEW`,
+        SET_VIEWPOINT: `${this.key}_SET_VIEWPOINT`,
+        SET_IS_SCENE: `${this.key}_SET_IS_SCENE`,
+        SET_GROUND: `${this.key}_SET_GROUND`,
+        SET_BASEMAP: `${this.key}_SET_BASEMAP`,
+        SET_SCENEVIEW_READY: `${this.key}_SET_SCENEVIEW_READY`,
+        SET_MAPVIEW_READY: `${this.key}_SET_MAPVIEW_READY`,
+        DESTROY_MAPVIEW: `${this.key}_DESTROY_MAPVIEW`,
+        DESTROY_SCENEVIEW: `${this.key}_DESTROY_SCENEVIEW`,
     }
 
     genReducer(){

@@ -5,7 +5,9 @@ import styled from 'styled-components';
 import { Button } from 'antd';
 import './index.less';
 import { useWidgets } from '../../../utils'
-import { view } from '../../../redux';
+import fm from '../../../redux';
+
+const view = fm.getFeature('VIEW');
 
 const defaultWidgets: WidgetsType = {
     Container: styled.div`

@@ -1,6 +1,5 @@
-import {
-    combineReducers
-} from 'redux';
+import FeatureManager from '../base/FeatureManager';
+
 import ViewFeature from '../features/BaseView/ViewFeature';
 import LayersFeature from '../features/Layers/LayersFeature';
 import GraphicsFeature from '../features/Graphics/GraphicsFeature';
@@ -8,14 +7,13 @@ import GraphicsFeature from '../features/Graphics/GraphicsFeature';
 const view = new ViewFeature();
 const layers = new LayersFeature();
 const graphics = new GraphicsFeature({view});
-export default combineReducers({
-    [view.featureKey]: view.genReducer(),
-    [layers.featureKey]: layers.genReducer(),
-    [graphics.featureKey]: graphics.genReducer(),
+
+const fm = new FeatureManager()
+
+fm.refreshFeatures({
+    [view.key]: view,
+    [layers.key]: view,
+    [graphics.key]: graphics,
 })
 
-export {
-    view,
-    layers,
-    graphics,
-}
+export default fm;

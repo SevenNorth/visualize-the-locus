@@ -5,10 +5,12 @@ import styled from 'styled-components';
 import { useWidgets } from '../../../utils'
 import { connect } from 'react-redux';
 import SceneView from './SceneView';
-import { view } from '../../../redux';
 import MapView from './MapView';
 import { useBasemap } from '../hooks';
 import ToolBar from './ToolBar';
+import fm from '../../../redux';
+
+const view = fm.getFeature('VIEW');
 
 const defaultWidgets = {
   Container: styled.div`

@@ -23,7 +23,7 @@ import { getLayer } from '../../utils'
     }
  */
 class GraphicsFeature {
-    featureKey = 'GRAPHICS';
+    key = 'GRAPHICS';
     constructor(props){
         const { view } = props;
         const drawGrapgicsLayer = getLayer({
@@ -42,9 +42,9 @@ class GraphicsFeature {
     }
 
     actionKeys = {
-        ADD: `${this.featureKey}_ADD`,
-        REMOVE: `${this.featureKey}_REMOVE`,
-        REMOVE_ALL: `${this.featureKey}_REMOVE_ALL`,
+        ADD: `${this.key}_ADD`,
+        REMOVE: `${this.key}_REMOVE`,
+        REMOVE_ALL: `${this.key}_REMOVE_ALL`,
     }
 
     genReducer(){

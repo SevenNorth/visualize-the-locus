@@ -3,10 +3,14 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { useRef } from 'react';
 import { useWidgets } from '../../../utils'
-import { view, layers, graphics } from '../../../redux'
 import { useSceneView, useGround, useViewpoint } from '../hooks';
 import { useLayers } from '../../Layers/hooks';
 import { useGraphics } from '../../Graphics/hooks';
+import fm from '../../../redux';
+
+const view = fm.getFeature('VIEW');
+const layers = fm.getFeature('LAYERS');
+const graphics = fm.getFeature('GRAPHICS');
 
 const defaultWidgets = {
     Container: styled.div`
