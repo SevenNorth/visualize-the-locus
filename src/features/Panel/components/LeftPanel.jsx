@@ -178,7 +178,6 @@ const LeftPanel = (props) => {
 
     const onSelectHandler = (keys) => {
         const exist = _.includes(expandedKeys, keys[0])
-        console.log("🚀-fjf : exist", exist);
         const newExpandedKeys = exist ? _.filter(expandedKeys, key => key !== keys[0]) : [...expandedKeys, keys[0]]
         setExpandedKeys(newExpandedKeys)
     };
