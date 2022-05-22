@@ -34,6 +34,8 @@ class GraphicsFeature extends BaseFeature {
         REMOVE_ALL: `REMOVE_ALL`,
     }
 
+    static defaultProps = {};
+
     constructor(props){
         super(props)
         const { view } = props;
@@ -47,9 +49,13 @@ class GraphicsFeature extends BaseFeature {
         });
         view.map.add(drawGrapgicsLayer);
         this.drawGrapgicsLayer = drawGrapgicsLayer;
-        this.initialState = {
-            graphics:[]
-        };
+    }
+
+    genInitialState(){
+        return {
+            graphics:[],
+            ...super.genInitialState(),
+        }
     }
 
     genReducer(){
@@ -76,17 +82,21 @@ class GraphicsFeature extends BaseFeature {
             newState.graphics = [];
         };
 
-        return (state = this.initialState, action) => 
+        const { actionKeys } = this;
+        const baseReducer = super.genReducer();
+
+        return (state, action) => 
             produce(state, newState => {
+                newState = baseReducer(newState, action);
                 const { type } = action;
                 switch (type) {
-                case this.actionKeys.ADD:
+                case actionKeys.ADD:
                     addGraphics(newState, action.graphics);
                     break;
-                case this.actionKeys.REMOVE:
+                case actionKeys.REMOVE:
                     removeGraphics(newState, action.graphics);
                     break;
-                case this.actionKeys.REMOVE_ALL:
+                case actionKeys.REMOVE_ALL:
                     removeAllGraphics(newState);
                     break;
                     default:

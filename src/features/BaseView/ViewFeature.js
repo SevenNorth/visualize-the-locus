@@ -1,9 +1,8 @@
 import produce from 'immer';
 import Map from "@arcgis/core/Map";
 
-import BaseFeature from '../../base/BaseFeature'
-import baseCfg from '../../config/baseCfg'
-
+import BaseFeature from '../../base/BaseFeature';
+import Request from '../../base/request';
 class ViewFeature extends BaseFeature {
     key = 'VIEW';
     initialState;
@@ -20,18 +19,12 @@ class ViewFeature extends BaseFeature {
         DESTROY_SCENEVIEW: `DESTROY_SCENEVIEW`,
     }
 
+    static defaultProps = {};
+
+    getListRequest;
+
     constructor(props){
         super(props)
-        this.initialState = {
-            basemap: baseCfg.basemaps[1],
-            ground: baseCfg.ground,
-            spatialReference: baseCfg.spatialReference,
-            viewpoint:baseCfg.viewpoint,
-            isScene: true,
-            isSceneViewReady:false,
-            isMapViewReady:false,
-            isViewReady:false,
-        };
         this.map = new Map({
             basemap: undefined,
             ground: undefined,
@@ -40,34 +33,60 @@ class ViewFeature extends BaseFeature {
             mapView: null,
             sceneView: null,
         };
+        this.registerSubFeatures({
+            getListRequest: {
+                FeatureClass: Request,
+                props: {
+                    requsetFn: this.test.bind(this)
+                }
+            },
+        })
+    }
+
+    test(e){
+    console.log("🚀-fjf : e", e);
+
+    }
+
+    genInitialState(){
+        return {
+            isScene: true,
+            isSceneViewReady:false,
+            isMapViewReady:false,
+            isViewReady:false,
+            ...super.genInitialState(),
+        }
     }
 
     genReducer(){
-        return (state = this.initialState, action) => 
+        const { actionKeys } = this;
+        const baseReducer = super.genReducer();
+        return (state, action) => 
             produce(state, newState => {
+                newState = baseReducer(newState, action);
                 const { type } = action;
                 switch (type) {
-                    case this.actionKeys.SET_IS_SCENE:
+                    case actionKeys.SET_IS_SCENE:
                         newState.isScene = action.isScene;
                         break;
-                    case this.actionKeys.SET_BASEMAP:
+                    case actionKeys.SET_BASEMAP:
                         newState.basemap = action.basemap;
                         break;
-                    case this.actionKeys.SET_VIEWPOINT:
+                    case actionKeys.SET_VIEWPOINT:
                         newState.viewpoint = action.viewpoint;
                         break;
-                    case this.actionKeys.SET_MAPVIEW_READY:
+                    case actionKeys.SET_MAPVIEW_READY:
                         newState.isMapViewReady = true;
                         newState.isViewReady = true;
                         break;
-                    case this.actionKeys.SET_SCENEVIEW_READY:
+                    case actionKeys.SET_SCENEVIEW_READY:
                         newState.isSceneViewReady = true;
                         newState.isViewReady = true;
                         break;
-                    case this.actionKeys.DESTROY_MAPVIEW:
+                    case actionKeys.DESTROY_MAPVIEW:
                         newState.isMapViewReady = false;
                         break;
-                    case this.actionKeys.DESTROY_SCENEVIEW:
+                    case actionKeys.DESTROY_SCENEVIEW:
                         newState.isSceneViewReady = false;
                         break;
                     default:

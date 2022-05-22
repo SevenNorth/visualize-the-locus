@@ -1,4 +1,5 @@
 import FeatureManager from '../base/FeatureManager';
+import baseCfg from '../config/baseCfg';
 
 import ViewFeature from '../features/BaseView/ViewFeature';
 import genViewComponents from '../features/BaseView/components/genComponents';
@@ -6,14 +7,26 @@ import LayersFeature from '../features/Layers/LayersFeature';
 import GraphicsFeature from '../features/Graphics/GraphicsFeature';
 
 const view = new ViewFeature({
-    key: 'VIEW'
+    key: 'VIEW',
+    initialState: {
+        basemap: baseCfg.basemaps[1],
+        ground: baseCfg.ground,
+        spatialReference: baseCfg.spatialReference,
+        viewpoint:baseCfg.viewpoint,
+    }
 });
 const layers = new LayersFeature({
-    key: 'LAYERS'
+    key: 'LAYERS',
+    initialState: {
+
+    }
 });
 const graphics = new GraphicsFeature({
     key: 'GRAPHICS',
-    view
+    view,
+    initialState: {
+
+    },
 });
 
 genViewComponents(view, layers, graphics)

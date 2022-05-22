@@ -5,17 +5,26 @@ import BaseFeature from '../../base/BaseFeature'
 
 class LayersFeature extends BaseFeature {
     key = 'LAYERS';
+
     static Keys = {
         ADD: `ADD`,
         REMOVE: `REMOVE`,
         REMOVE_ALL: `REMOVE_ALL`,
         UPDATE_LAYER: `UPDATE_LAYER`, // 暂未使用
     }
+
+    static defaultProps = {};
+
     constructor(props){
         super(props)
-        this.initialState = {
-            layers:[]
-        };
+        console.log("🚀-fjf : props", props);
+    }
+
+    genInitialState(){
+        return {
+            layers:[],
+            ...super.genInitialState(),
+        }
     }
 
     genReducer(){
@@ -42,17 +51,21 @@ class LayersFeature extends BaseFeature {
             newState.layers = [];
         };
 
+        const { actionKeys } = this;
+        const baseReducer = super.genReducer();
+
         return (state = this.initialState, action) => 
             produce(state, newState => {
+                newState = baseReducer(newState, action);
                 const { type } = action;
                 switch (type) {
-                case this.actionKeys.ADD:
+                case actionKeys.ADD:
                     addLayers(newState, action.layers);
                     break;
-                case this.actionKeys.REMOVE:
+                case actionKeys.REMOVE:
                     removeLayers(newState, action.layers);
                     break;
-                case this.actionKeys.REMOVE_ALL:
+                case actionKeys.REMOVE_ALL:
                     removeAllLayers(newState);
                     break;
                     default:

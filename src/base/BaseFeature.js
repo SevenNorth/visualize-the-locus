@@ -1,13 +1,31 @@
 import _ from 'lodash';
+import produce, { setAutoFreeze } from 'immer';
+
+setAutoFreeze(false);
 
 class BaseFeature{
+
+    static Keys = {
+        READY: 'ready',
+        ACTIVATE: 'activate',
+        DEACTIVATE: 'deactivate',
+        UPDATE: 'update',
+        DEEP_UPDATE: 'deepUpdate',
+    };
+
+    key
+    stateKey;
     store;
     context;
     _actionKeys
     _components;
-    _subFeatures
+    _subFeatures;
 
+    static defaultProps = {};
     constructor(props) {
+        const { defaultProps } = this.constructor;
+        this.props = _.defaultsDeep({}, props, defaultProps);
+        this.key = props.key;
         this.stateKey = props?.key ?? this.key;
     }
 
@@ -71,6 +89,93 @@ class BaseFeature{
             });
             this.subFeatures[k] = fea;
             this[k] = fea;
+        });
+    }
+
+    genInitialState(){
+        const initialState = {
+            isReady: false,
+            isActive: false,
+            ...this.props.initialState,
+        };
+        _.each(this.subFeatures, (fea, k) => {
+            initialState[k] = fea.genInitialState();
+        });
+        return initialState;
+    }
+
+    genReducer(){
+        const { actionKeys } = this;
+        const subReducers = {};
+        _.each(this.subFeatures, (fea, k) => {
+            subReducers[k] = fea.genReducer();
+        });
+        return (state, action) =>
+            produce(state, (newState = this.genInitialState()) => {
+                _.each(subReducers, (reducer, key) => {
+                    const feaState = reducer(newState[key], action);
+                    newState[key] = feaState;
+                });
+                const { type } = action;
+                switch (type) {
+                case actionKeys.UPDATE:
+                    _.assign(newState, action.newState);
+                    break;
+                case actionKeys.DEEP_UPDATE:
+                    _.each(action.newStateMap, (value, key) => {
+                        _.set(newState, key, value);
+                    });
+                    break;
+                case actionKeys.READY:
+                    newState.isReady = true;
+                    break;
+                case actionKeys.ACTIVATE:
+                    newState.isActive = true;
+                    break;
+                case actionKeys.DEACTIVATE:
+                    newState.isActive = false;
+                    break;
+                default:
+                    break;
+                }
+                return newState;
+            });
+    }
+
+    update(newState){
+        const { dispatch } = this.context;
+        dispatch({
+            type: this.actionKeys.UPDATE,
+            newState,
+        });
+    }
+
+    deepUpdate(newStateMap){
+        const { dispatch } = this.context;
+        dispatch({
+            type: this.actionKeys.DEEP_UPDATE,
+            newStateMap,
+        });
+    }
+
+    ready(){
+        const { dispatch } = this.context;
+        dispatch({
+            type: this.actionKeys.READY,
+        });
+    }
+
+    activate(){
+        const { dispatch } = this.context;
+        dispatch({
+            type: this.actionKeys.ACTIVATE,
+        });
+    }
+
+    deactivate() {
+        const { dispatch } = this.context;
+        dispatch({
+            type: this.actionKeys.DEACTIVATE,
         });
     }
 }
