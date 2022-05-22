@@ -77,10 +77,11 @@ class ViewFeature extends BaseFeature {
     }
 
     setIsScene(isScene){
-        return {
+        const { dispatch } = this.context;
+        return dispatch( {
             type: this.actionKeys.SET_IS_SCENE,
             isScene,
-        }
+        })
     }
 
     setBaseMap(basemap){
