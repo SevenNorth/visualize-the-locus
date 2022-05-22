@@ -2,7 +2,6 @@ import produce from 'immer';
 import Map from "@arcgis/core/Map";
 
 import BaseFeature from '../../base/BaseFeature';
-import Request from '../../base/request';
 class ViewFeature extends BaseFeature {
     key = 'VIEW';
     initialState;
@@ -21,8 +20,6 @@ class ViewFeature extends BaseFeature {
 
     static defaultProps = {};
 
-    getListRequest;
-
     constructor(props){
         super(props)
         this.map = new Map({
@@ -33,19 +30,6 @@ class ViewFeature extends BaseFeature {
             mapView: null,
             sceneView: null,
         };
-        this.registerSubFeatures({
-            getListRequest: {
-                FeatureClass: Request,
-                props: {
-                    requsetFn: this.test.bind(this)
-                }
-            },
-        })
-    }
-
-    test(e){
-    console.log("🚀-fjf : e", e);
-
     }
 
     genInitialState(){
