@@ -5,6 +5,7 @@ import ViewFeature from '../features/BaseView/ViewFeature';
 import genViewComponents from '../features/BaseView/components/genComponents';
 import LayersFeature from '../features/Layers/LayersFeature';
 import GraphicsFeature from '../features/Graphics/GraphicsFeature';
+import PanelFeature from '../features/Panel/PanelFeature';
 
 const view = new ViewFeature({
     key: 'VIEW',
@@ -28,6 +29,9 @@ const graphics = new GraphicsFeature({
 
     },
 });
+const panel = new PanelFeature({
+    key: 'PANEL',
+})
 
 genViewComponents(view, layers, graphics)
 
@@ -37,6 +41,7 @@ fm.refreshFeatures({
     [view.key]: view,
     [layers.key]: layers,
     [graphics.key]: graphics,
+    [panel.key]: panel,
 })
 
 export default fm;

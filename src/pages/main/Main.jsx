@@ -19,7 +19,6 @@ const Main = () => {
 
   const { Container } = widgets;
   return <Container>
-    {/* <BaseView /> */}
     <view.components.BaseView />
     <LeftPanel />
     <FooterInfo />
