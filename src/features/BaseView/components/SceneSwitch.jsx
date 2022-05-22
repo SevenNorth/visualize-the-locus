@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -36,7 +35,7 @@ const SceneSwitch = (props: PropsType) => {
 };
 const connectedSceneSwitch = connect(
     state => {
-        const viewState = _.get(state, view.featureKey);
+        const viewState = view.getOwnState();
         const { isScene } = viewState;
         return {
             isScene,

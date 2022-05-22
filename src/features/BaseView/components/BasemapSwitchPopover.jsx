@@ -63,7 +63,7 @@ const BasemapSwitchPopover = (props) => {
 
 const connectedBasemapSwitchPopover = connect(
     state => {
-        const viewState = _.get(state, view.featureKey);
+        const viewState = view.getOwnState();
         const { basemap } = viewState;
         return {
             basemaps: baseCfg.basemaps,

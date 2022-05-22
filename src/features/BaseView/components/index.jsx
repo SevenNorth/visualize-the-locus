@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import './index.less'
 import styled from 'styled-components';
 import { useWidgets } from '../../../utils'
@@ -33,7 +32,7 @@ const BaseView = (props) => {
 
 const connectedBaseView = connect(
   state => {
-    const viewState = _.get(state, view.featureKey);
+    const viewState = view.getOwnState();
     const { isScene, basemap } = viewState;
     const map = view.map;
     return {

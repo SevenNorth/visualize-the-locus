@@ -4,9 +4,16 @@ import ViewFeature from '../features/BaseView/ViewFeature';
 import LayersFeature from '../features/Layers/LayersFeature';
 import GraphicsFeature from '../features/Graphics/GraphicsFeature';
 
-const view = new ViewFeature();
-const layers = new LayersFeature();
-const graphics = new GraphicsFeature({view});
+const view = new ViewFeature({
+    key: 'VIEW'
+});
+const layers = new LayersFeature({
+    key: 'LAYERS'
+});
+const graphics = new GraphicsFeature({
+    key: 'GRAPHICS',
+    view
+});
 
 const fm = new FeatureManager()
 

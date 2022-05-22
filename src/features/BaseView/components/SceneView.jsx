@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import { useRef } from 'react';
 import { useWidgets } from '../../../utils'
@@ -34,9 +33,9 @@ const SceneView = (props) => {
 
 export default connect(
     state => {
-        const viewState = _.get(state, view.featureKey);
-        const layersState = _.get(state, layers.featureKey);
-        const graphicsState = _.get(state, graphics.featureKey);
+        const viewState = view.getOwnState();
+        const layersState = layers.getOwnState();
+        const graphicsState = graphics.getOwnState();
         const { ground, basemap, viewpoint, spatialReference } = viewState;
         const { layers: reduxLayers } = layersState;
         const { graphics: reduxGraphics } = graphicsState;

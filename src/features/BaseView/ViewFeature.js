@@ -1,13 +1,15 @@
 import produce from 'immer';
 import Map from "@arcgis/core/Map";
 
+import BaseFeature from '../../base/BaseFeature'
 import baseCfg from '../../config/baseCfg'
 
-class ViewFeature {
+class ViewFeature extends BaseFeature {
     key = 'VIEW';
     initialState;
     map;
-    constructor(){
+    constructor(props){
+        super(props)
         this.initialState = {
             basemap: baseCfg.basemaps[1],
             ground: baseCfg.ground,

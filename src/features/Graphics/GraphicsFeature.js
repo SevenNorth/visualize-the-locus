@@ -1,6 +1,9 @@
 import produce from 'immer';
 import _ from 'lodash';
+
 import { getLayer } from '../../utils'
+import BaseFeature from '../../base/BaseFeature'
+
 /**
     graphics示例：
     {
@@ -22,9 +25,10 @@ import { getLayer } from '../../utils'
         }
     }
  */
-class GraphicsFeature {
+class GraphicsFeature extends BaseFeature {
     key = 'GRAPHICS';
     constructor(props){
+        super(props)
         const { view } = props;
         const drawGrapgicsLayer = getLayer({
             id: 'draw-graphics',

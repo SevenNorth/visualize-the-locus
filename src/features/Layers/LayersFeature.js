@@ -1,8 +1,12 @@
 import produce from 'immer';
 import _ from 'lodash';
-class LayersFeature {
+
+import BaseFeature from '../../base/BaseFeature'
+
+class LayersFeature extends BaseFeature {
     key = 'LAYERS';
-    constructor(){
+    constructor(props){
+        super(props)
         this.initialState = {
             layers:[]
         };
