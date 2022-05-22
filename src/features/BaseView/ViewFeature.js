@@ -9,7 +9,7 @@ class ViewFeature {
     map;
     constructor(){
         this.initialState = {
-            basemap: baseCfg.basemaps[0],
+            basemap: baseCfg.basemaps[1],
             ground: baseCfg.ground,
             spatialReference: baseCfg.spatialReference,
             viewpoint:baseCfg.viewpoint,

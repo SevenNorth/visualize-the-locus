@@ -9,6 +9,11 @@ const defaultWidgets = {
         width: 100%;
         height: 100%;
         border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+    `,
+    Title: styled.div`
+        padding: 0.3rem 0 0.5rem;
     `,
 };
 
@@ -20,9 +25,17 @@ const BasePanel = (props) => {
         className,
         defaultWidgets,
     );
-    const { Container } = widgets;
+    const { Container, Title } = widgets;
+    const { title } = props;
     return (
         <Container>
+            {
+                title ? 
+                <Title>
+                    {title}
+                </Title>
+                : null
+            }
             {
                 props.children
             }

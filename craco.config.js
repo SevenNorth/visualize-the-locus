@@ -13,8 +13,11 @@ module.exports = {
             lessLoaderOptions: {
                 lessOptions: {
                     modifyVars: {
-                        '@primary-color': '#1DA57A',
-                        '@text-color': 'rgba(255, 255, 255, 1)',
+                        '@primary-color': '#fff',
+                        '@text-color': '#fff',
+                        '@calendar-bg': "rgba(0,0,0,0.8)",
+                        "@input-border-color": '#fff',
+                        "@component-background":'rgba(0,0,0,0.8)',
                     },
                     javascriptEnabled: true,
                 },
