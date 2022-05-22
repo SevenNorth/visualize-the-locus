@@ -8,7 +8,7 @@ class BaseFeature{
     _subFeatures
 
     constructor(props) {
-        this.featureKey = props?.key ?? this.key;
+        this.stateKey = props?.key ?? this.key;
     }
 
     get components(){
@@ -23,7 +23,7 @@ class BaseFeature{
             this._actionKeys = {};
             const { Keys } = this.constructor;
             _.each(Keys, (v, k) => {
-                this._actionKeys[k] = `${this.featureKey}.${v}`;
+                this._actionKeys[k] = `${this.stateKey}.${v}`;
             });
         }
         return this._actionKeys;
@@ -52,7 +52,7 @@ class BaseFeature{
     }
 
     getOwnState(){
-        return _.get(this.store.getState(), this.featureKey);
+        return _.get(this.store.getState(), this.stateKey);
     }
 
     registerComponents(components) {
