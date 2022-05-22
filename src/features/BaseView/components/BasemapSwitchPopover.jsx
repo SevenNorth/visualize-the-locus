@@ -5,10 +5,7 @@ import styled from 'styled-components';
 import { Button, Popover } from 'antd';
 import './index.less';
 import { useWidgets } from '../../../utils'
-import fm from '../../../redux';
 import baseCfg from '../../../config/baseCfg';
-
-const view = fm.getFeature('VIEW');
 
 const defaultWidgets = {
     Container: styled.div`
@@ -61,22 +58,28 @@ const BasemapSwitchPopover = (props) => {
     );
 };
 
-const connectedBasemapSwitchPopover = connect(
-    state => {
-        const viewState = view.getOwnState();
-        const { basemap } = viewState;
-        return {
-            basemaps: baseCfg.basemaps,
-            current: basemap,
-        }
-    },
-    dispatch => {
-        return {
-            handleChange: (basemap) => {
-                dispatch(view.setBaseMap(basemap));
+const connectBasemapSwitchPopover = (viewFeature) => {
+    return connect(
+        state => {
+            const viewState = viewFeature.getOwnState();
+            const { basemap } = viewState;
+            return {
+                basemaps: baseCfg.basemaps,
+                current: basemap,
+            }
+        },
+        dispatch => {
+            return {
+                handleChange: (basemap) => {
+                    dispatch(viewFeature.setBaseMap(basemap));
+                }
             }
         }
-    }
-)(BasemapSwitchPopover);
+    )(BasemapSwitchPopover);
+}
 
-export default React.memo(connectedBasemapSwitchPopover);
+export {
+    connectBasemapSwitchPopover
+}
+
+export default React.memo(BasemapSwitchPopover);

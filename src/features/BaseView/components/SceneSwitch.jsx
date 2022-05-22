@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import { Button } from 'antd';
 import './index.less';
 import { useWidgets } from '../../../utils'
-import fm from '../../../redux';
-
-const view = fm.getFeature('VIEW');
 
 const defaultWidgets: WidgetsType = {
     Container: styled.div`
@@ -33,20 +30,27 @@ const SceneSwitch = (props: PropsType) => {
         </Container>
     );
 };
-const connectedSceneSwitch = connect(
-    state => {
-        const viewState = view.getOwnState();
-        const { isScene } = viewState;
-        return {
-            isScene,
-        };
-    },
-    dispatch => {
-        return {
-            handleChange: (isScene) => {
-                dispatch(view.setIsScene(isScene));
-            },
-        };
-    },
-)(SceneSwitch);
-export default React.memo(connectedSceneSwitch);
+const connectSceneSwitch = (viewFeature) => {
+    return connect(
+        state => {
+            const viewState = viewFeature.getOwnState();
+            const { isScene } = viewState;
+            return {
+                isScene,
+            };
+        },
+        dispatch => {
+            return {
+                handleChange: (isScene) => {
+                    dispatch(viewFeature.setIsScene(isScene));
+                },
+            };
+        },
+    )(SceneSwitch);
+}
+
+export {
+    connectSceneSwitch
+}
+
+export default React.memo(SceneSwitch);

@@ -23,9 +23,9 @@ class BaseFeature{
             feature: this,
         };
         if (this.props?.genComponents) {
-            const componentMap = this.props.genComponents(this);
-            if (componentMap) {
-                this.registerComponents(componentMap);
+            const componentsMap = this.props.genComponents(this);
+            if (componentsMap) {
+                this.registerComponents(componentsMap);
             }
         }
     }

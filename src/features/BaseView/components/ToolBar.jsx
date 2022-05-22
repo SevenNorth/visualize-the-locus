@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import './index.less';
 import { useWidgets } from '../../../utils';
-import SceneSwitch from './SceneSwitch';
-import BasemapSwitchPopover from './BasemapSwitchPopover';
+import { connect } from 'react-redux';
 
 const defaultWidgets = {
     Container: styled.div`
@@ -15,8 +14,9 @@ const ToolBar = (props) => {
     const widgets = useWidgets(
         className,
         defaultWidgets,
+        props.widgets
     );
-    const { Container } = widgets;
+    const { Container, SceneSwitch, BasemapSwitchPopover } = widgets;
     return (
         <Container>
             <SceneSwitch />
@@ -25,5 +25,23 @@ const ToolBar = (props) => {
     );
 };
 
+const connectToolBar = (viewFeature) => {
+    return connect(
+        ()=>{
+            const widgets = {
+                SceneSwitch: viewFeature.components.SceneSwitch,
+                BasemapSwitchPopover: viewFeature.components.BasemapSwitchPopover,
+            }
+            return {
+                widgets
+            }
+        },
+        () => {
+            return {};
+        }
+    )(ToolBar)
+}
+
+export { connectToolBar }
 
 export default React.memo(ToolBar);

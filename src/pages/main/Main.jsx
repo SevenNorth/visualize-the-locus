@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { useWidgets } from '../../utils'
-import BaseView from '../../features/BaseView/components/index';
 import LeftPanel from '../../features/Panel/components/LeftPanel';
 import FooterInfo from '../../components/FooterInfo';
+
+import fm from '../../redux';
 
 const defaultWidgets = {
   Container: styled.div`
@@ -14,10 +15,12 @@ const defaultWidgets = {
 const className = 'MainPage'
 const Main = () => {
   const widgets = useWidgets(className, defaultWidgets);
+  const view = fm.getFeature('VIEW');
 
   const { Container } = widgets;
   return <Container>
-    <BaseView />
+    {/* <BaseView /> */}
+    <view.components.BaseView />
     <LeftPanel />
     <FooterInfo />
   </Container>;

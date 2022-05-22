@@ -1,6 +1,7 @@
 import FeatureManager from '../base/FeatureManager';
 
 import ViewFeature from '../features/BaseView/ViewFeature';
+import genViewComponents from '../features/BaseView/components/genComponents';
 import LayersFeature from '../features/Layers/LayersFeature';
 import GraphicsFeature from '../features/Graphics/GraphicsFeature';
 
@@ -15,11 +16,13 @@ const graphics = new GraphicsFeature({
     view
 });
 
+genViewComponents(view, layers, graphics)
+
 const fm = new FeatureManager()
 
 fm.refreshFeatures({
     [view.key]: view,
-    [layers.key]: view,
+    [layers.key]: layers,
     [graphics.key]: graphics,
 })
 
