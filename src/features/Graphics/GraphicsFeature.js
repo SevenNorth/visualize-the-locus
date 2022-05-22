@@ -27,6 +27,13 @@ import BaseFeature from '../../base/BaseFeature'
  */
 class GraphicsFeature extends BaseFeature {
     key = 'GRAPHICS';
+    
+    static Keys = {
+        ADD: `ADD`,
+        REMOVE: `REMOVE`,
+        REMOVE_ALL: `REMOVE_ALL`,
+    }
+
     constructor(props){
         super(props)
         const { view } = props;
@@ -43,12 +50,6 @@ class GraphicsFeature extends BaseFeature {
         this.initialState = {
             graphics:[]
         };
-    }
-
-    actionKeys = {
-        ADD: `${this.key}_ADD`,
-        REMOVE: `${this.key}_REMOVE`,
-        REMOVE_ALL: `${this.key}_REMOVE_ALL`,
     }
 
     genReducer(){

@@ -8,6 +8,18 @@ class ViewFeature extends BaseFeature {
     key = 'VIEW';
     initialState;
     map;
+
+    static Keys = {
+        SET_VIEWPOINT: `SET_VIEWPOINT`,
+        SET_IS_SCENE: `SET_IS_SCENE`,
+        SET_GROUND: `SET_GROUND`,
+        SET_BASEMAP: `SET_BASEMAP`,
+        SET_SCENEVIEW_READY: `SET_SCENEVIEW_READY`,
+        SET_MAPVIEW_READY: `SET_MAPVIEW_READY`,
+        DESTROY_MAPVIEW: `DESTROY_MAPVIEW`,
+        DESTROY_SCENEVIEW: `DESTROY_SCENEVIEW`,
+    }
+
     constructor(props){
         super(props)
         this.initialState = {
@@ -28,17 +40,6 @@ class ViewFeature extends BaseFeature {
             mapView: null,
             sceneView: null,
         };
-    }
-
-    actionKeys = {
-        SET_VIEWPOINT: `${this.key}_SET_VIEWPOINT`,
-        SET_IS_SCENE: `${this.key}_SET_IS_SCENE`,
-        SET_GROUND: `${this.key}_SET_GROUND`,
-        SET_BASEMAP: `${this.key}_SET_BASEMAP`,
-        SET_SCENEVIEW_READY: `${this.key}_SET_SCENEVIEW_READY`,
-        SET_MAPVIEW_READY: `${this.key}_SET_MAPVIEW_READY`,
-        DESTROY_MAPVIEW: `${this.key}_DESTROY_MAPVIEW`,
-        DESTROY_SCENEVIEW: `${this.key}_DESTROY_SCENEVIEW`,
     }
 
     genReducer(){

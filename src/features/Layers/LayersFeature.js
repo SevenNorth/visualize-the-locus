@@ -5,18 +5,17 @@ import BaseFeature from '../../base/BaseFeature'
 
 class LayersFeature extends BaseFeature {
     key = 'LAYERS';
+    static Keys = {
+        ADD: `ADD`,
+        REMOVE: `REMOVE`,
+        REMOVE_ALL: `REMOVE_ALL`,
+        UPDATE_LAYER: `UPDATE_LAYER`, // 暂未使用
+    }
     constructor(props){
         super(props)
         this.initialState = {
             layers:[]
         };
-    }
-
-    actionKeys = {
-        ADD: `${this.key}_ADD`,
-        REMOVE: `${this.key}_REMOVE`,
-        REMOVE_ALL: `${this.key}_REMOVE_ALL`,
-        UPDATE_LAYER: `${this.key}_UPDATE_LAYER`, // 暂未使用
     }
 
     genReducer(){

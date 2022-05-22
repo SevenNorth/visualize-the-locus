@@ -3,7 +3,10 @@ import _ from 'lodash';
 class BaseFeature{
     store;
     context;
+    _actionKeys
     _components;
+    _subFeatures
+
     constructor(props) {
         this.featureKey = props?.key ?? this.key;
     }
@@ -13,6 +16,24 @@ class BaseFeature{
             this._components = {};
         }
         return this._components;
+    }
+
+    get actionKeys() {
+        if (!this._actionKeys) {
+            this._actionKeys = {};
+            const { Keys } = this.constructor;
+            _.each(Keys, (v, k) => {
+                this._actionKeys[k] = `${this.featureKey}.${v}`;
+            });
+        }
+        return this._actionKeys;
+    }
+
+    get subFeatures(){
+        if (!this._subFeatures) {
+            this._subFeatures = {};
+        }
+        return this._subFeatures;
     }
 
     init(store) {
@@ -36,6 +57,21 @@ class BaseFeature{
 
     registerComponents(components) {
         _.assign(this.components, components);
+    }
+
+    registerSubFeatures(
+        features,
+    ): void {
+        _.each(features, (v, k) => {
+            const { FeatureClass, props } = v;
+            const key = `${this.key}.${k}`;
+            const fea = new FeatureClass({
+                key,
+                ...props,
+            });
+            this.subFeatures[k] = fea;
+            this[k] = fea;
+        });
     }
 }
 
