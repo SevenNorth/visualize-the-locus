@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import "@arcgis/core/assets/esri/themes/light/main.css";
+
 import Main from './pages/main/Main';
 import './App.less';
 

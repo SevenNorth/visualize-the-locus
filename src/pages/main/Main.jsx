@@ -1,8 +1,11 @@
 import styled from 'styled-components';
+import 'moment/locale/zh-cn';
+import locale from 'antd/lib/locale/zh_CN';
+import { ConfigProvider } from 'antd';
+
 import { useWidgets } from '../../utils'
 import LeftPanel from '../../features/Panel/components/LeftPanel';
 import FooterInfo from '../../components/FooterInfo';
-
 import fm from '../../redux';
 
 const defaultWidgets = {
@@ -18,11 +21,15 @@ const Main = () => {
   const view = fm.getFeature('VIEW');
 
   const { Container } = widgets;
-  return <Container>
-    <view.components.BaseView />
-    <LeftPanel />
-    <FooterInfo />
-  </Container>;
+  return (
+    <ConfigProvider locale = {locale}>
+      <Container>
+        <view.components.BaseView />
+        <LeftPanel />
+        <FooterInfo />
+      </Container>
+    </ConfigProvider>
+  );
 }
 
 export default Main;
