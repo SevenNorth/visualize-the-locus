@@ -76,23 +76,26 @@ class LayersFeature extends BaseFeature {
     }
 
     add(layers){
-        return {
+        const { dispatch } = this.context
+        return dispatch({
             type: this.actionKeys.ADD,
             layers,
-        }
+        })
     }
 
     rmLayers(layers){
-        return {
+        const { dispatch } = this.context
+        return dispatch({
             type: this.actionKeys.REMOVE,
             layers,
-        }
+        })
     }
 
     rmAll(){
-        return {
+        const { dispatch } = this.context
+        return dispatch({
             type: this.actionKeys.REMOVE_ALL
-        }
+        })
     }
 }
 

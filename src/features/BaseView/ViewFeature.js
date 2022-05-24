@@ -89,45 +89,51 @@ class ViewFeature extends BaseFeature {
     }
 
     setBaseMap(basemap){
-        return {
+        const { dispatch } = this.context;
+        return dispatch({
             type: this.actionKeys.SET_BASEMAP,
             basemap,
-        }
+        })
     }
 
     setViewpoint(viewpoint){
-        return {
+        const { dispatch } = this.context;
+        return dispatch({
             type: this.actionKeys.SET_VIEWPOINT,
             viewpoint,
-        }
+        })
     }
 
     setMapViewReady(mapView) {
         this.viewCache.mapView = mapView;
-        return {
+        const { dispatch } = this.context;
+        return dispatch({
             type: this.actionKeys.SET_MAPVIEW_READY,
-        };
+        })
     }
 
     setSceneViewReady(sceneView): void {
         this.viewCache.sceneView = sceneView;
-        return {
+        const { dispatch } = this.context;
+        return dispatch({
             type: this.actionKeys.SET_SCENEVIEW_READY,
-        };
+        });
     }
 
     destroyMapView() {
         this.viewCache.mapView = null;
-        return {
+        const { dispatch } = this.context;
+        return dispatch({
             type: this.actionKeys.DESTROY_MAPVIEW,
-        };
+        });
     }
 
     destroySceneView() {
         this.viewCache.sceneView = null;
-        return {
+        const { dispatch } = this.context;
+        return dispatch({
             type: this.actionKeys.DESTROY_SCENEVIEW,
-        };
+        });
     }
 }
 
