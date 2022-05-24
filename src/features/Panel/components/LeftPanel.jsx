@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import _ from 'lodash';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { DatePicker, Divider, Empty, Tree } from 'antd';
+import { DatePicker, Divider, Empty, Spin, Tree } from 'antd';
+import { SwapRightOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
+import moment from 'moment';
 
 import './index.less';
 import { useWidgets } from '../../../utils'
@@ -11,12 +13,13 @@ import BasePanel from '../../../components/BasePanel';
 
 // import { graphics } from '../../../redux';
 
-const { RangePicker } = DatePicker;
-
-
 const defaultWidgets = {
     Container: styled.div`
     `,
+    SpinWrapper: styled.div`
+    `,
+    DatePickerWrapper: styled.div`
+    `
 };
 
 const treeData = [
@@ -167,18 +170,53 @@ const LeftPanel = (props) => {
         className,
         defaultWidgets,
     );
-    const { Container } = widgets;
+    const { Container, SpinWrapper, DatePickerWrapper } = widgets;
 
     const [checkedKeys, setCheckedKeys] = useState([]);
     const [expandedKeys, setExpandedKeys] = useState([]);
-    const [dateRange, setDateRange] = useState([]);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
 
-    useEffect(() => {
-    console.log("🚀-fjf : dateRange", dateRange);
-        
-    }, [dateRange])
-    
+    useEffect(()=>{
+        console.log("🚀-fjf : startDate", startDate);
+        console.log("🚀-fjf : endDate", endDate);
+    }, [startDate, endDate])
 
+    const onStartDateChange = (date, dateString) => {
+        setStartDate(date);
+    }
+
+    const onEndDateChange = (date, dateString) => {
+        setEndDate(date);
+    }
+
+    const disabledDate = (current) => {
+    console.log("🚀-fjf : current", current);
+        return current && current < moment().endOf('day');
+    };
+
+    const renderDateRangePicker = () => {
+        return (
+            <DatePickerWrapper>
+                <DatePicker 
+                    value={startDate}
+                    suffixIcon={null}
+                    onChange={onStartDateChange}
+                    disabledDate={disabledDate}
+                />
+                <SwapRightOutlined />
+                <DatePicker value={endDate} suffixIcon={null} onChange={onEndDateChange}/>
+            </DatePickerWrapper>
+        )
+    }
+
+    const renderEmpty = () => {
+        return (
+            <Empty />
+        )
+    }
+
+    // tree相关方法
     const onCheck = (checkedKeysValue) => {
         setCheckedKeys(checkedKeysValue);
     };
@@ -195,25 +233,6 @@ const LeftPanel = (props) => {
         setExpandedKeys(newExpandedKeys)
     };
 
-    const onDateRangeChage = (date) => {
-        setDateRange(date)
-    }
-
-    const renderDateRangePicker = () => {
-        return (
-            <RangePicker
-                value = { dateRange }
-                onChange = {onDateRangeChage}
-            />
-        )
-    }
-
-    const renderEmpty = () => {
-        return (
-            <Empty />
-        )
-    }
-
     // 滚动条
     const renderThumb = () => {
         const thumbStyle = { // 设置滚动条样式
@@ -224,7 +243,8 @@ const LeftPanel = (props) => {
     }
 
     const renderTree = () => {
-        return (
+        const isFetching = false;
+        return !isFetching ?  (
             <Scrollbars
                 className='Scrollbars-for-Tree'
                 renderThumbVertical={renderThumb}
@@ -245,7 +265,9 @@ const LeftPanel = (props) => {
                     onExpand={onExpandHandler}
                 />
             </Scrollbars>
-        )
+        ) : <SpinWrapper>
+            <Spin />
+        </SpinWrapper>
     }
 
     return (
@@ -253,7 +275,7 @@ const LeftPanel = (props) => {
             <BasePanel title='病例列表' >
                 { renderDateRangePicker() }
                 <Divider />
-                { renderEmpty() }
+                {/* { renderEmpty() } */}
                 { renderTree() }
             </BasePanel>
         </Container>

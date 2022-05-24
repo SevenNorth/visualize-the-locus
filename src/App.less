@@ -25,9 +25,14 @@ html, body{
     outline: none !important;
 }
 
-.ant-picker-panels{
-    .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, 
-    .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner{
+.ant-picker-dropdown{
+    .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner{
         background-color: #2192aa;
+    }
+    .ant-picker-panel-container .ant-picker-panel{
+        background: rgba(0, 0, 0, 0.8);
+    }
+    .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before{
+        border: 1px solid #2192aa;
     }
 }
