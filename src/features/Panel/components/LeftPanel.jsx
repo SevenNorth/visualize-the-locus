@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import _ from 'lodash';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { DatePicker, Divider, Empty, Spin, Tree } from 'antd';
+import { DatePicker, Divider, Spin, Tree } from 'antd';
 import { SwapRightOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
 import moment from 'moment';
@@ -210,11 +210,11 @@ const LeftPanel = (props) => {
         )
     }
 
-    const renderEmpty = () => {
-        return (
-            <Empty />
-        )
-    }
+    // const renderEmpty = () => {
+    //     return (
+    //         <Empty />
+    //     )
+    // }
 
     // tree相关方法
     const onCheck = (checkedKeysValue) => {
