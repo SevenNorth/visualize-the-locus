@@ -22,13 +22,13 @@ const Main = () => {
 
   const { Container } = widgets;
   return (
-    <ConfigProvider locale = {locale}>
+    <ConfigProvider locale={locale}>
       <Container>
         <view.components.BaseView />
         <LeftPanel />
         <FooterInfo />
       </Container>
-    </ConfigProvider>
+  </ConfigProvider>
   );
 }
 

@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@arcgis/core": "^4.22.2",
     "@craco/craco": "^6.4.3",
     "antd": "^4.18.5",

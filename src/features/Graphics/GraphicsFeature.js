@@ -107,23 +107,26 @@ class GraphicsFeature extends BaseFeature {
     }
 
     add(graphics){
-        return {
+        const { dispatch } = this.context
+        return dispatch({
             type: this.actionKeys.ADD,
             graphics,
-        }
+        })
     }
 
     remove(graphics){
-        return {
+        const { dispatch } = this.context
+        return dispatch({
             type: this.actionKeys.REMOVE,
             graphics,
-        }
+        })
     }
 
     removeAll(){
-        return {
+        const { dispatch } = this.context
+        return dispatch({
             type: this.actionKeys.REMOVE_ALL
-        }
+        })
     }
 }
 

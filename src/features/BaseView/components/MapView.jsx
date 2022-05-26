@@ -50,16 +50,16 @@ const connectMapView = (viewFeature, LayersFeature, GraphicsFeature) => {
                 drawGrapgicsLayer,
             }
         },
-        dispatch => {
+        () => {
             return {
                 handleViewpointChange: (viewpoint)=>{
-                    dispatch(viewFeature.setViewpoint(viewpoint));
+                    viewFeature.setViewpoint(viewpoint);
                 },
                 handleReady: (mapView)=>{
-                    dispatch(viewFeature.setMapViewReady(mapView));
+                    viewFeature.setMapViewReady(mapView);
                 },
                 destroy: ()=>{
-                    dispatch(viewFeature.destroyMapView())
+                    viewFeature.destroyMapView()
                 }
             }
         }

@@ -52,16 +52,16 @@ const connectSceneView = (viewFeature, LayersFeature, GraphicsFeature) => {
                 drawGrapgicsLayer,
             }
         },
-        dispatch => {
+        () => {
             return {
                 handleViewpointChange: (viewpoint)=>{
-                    dispatch(viewFeature.setViewpoint(viewpoint));
+                    viewFeature.setViewpoint(viewpoint);
                 },
                 handleReady: (sceneView)=>{
-                    dispatch(viewFeature.setSceneViewReady(sceneView));
+                    viewFeature.setSceneViewReady(sceneView);
                 },
                 destroy: ()=>{
-                    dispatch(viewFeature.destroySceneView())
+                    viewFeature.destroySceneView()
                 }
             }
         }

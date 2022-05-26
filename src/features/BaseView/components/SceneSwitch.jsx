@@ -39,7 +39,7 @@ const connectSceneSwitch = (viewFeature) => {
                 isScene,
             };
         },
-        dispatch => {
+        () => {
             return {
                 handleChange: (isScene) => {
                     viewFeature.setIsScene(isScene);

@@ -68,10 +68,10 @@ const connectBasemapSwitchPopover = (viewFeature) => {
                 current: basemap,
             }
         },
-        dispatch => {
+        () => {
             return {
                 handleChange: (basemap) => {
-                    dispatch(viewFeature.setBaseMap(basemap));
+                    viewFeature.setBaseMap(basemap);
                 }
             }
         }

@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import _ from 'lodash';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { DatePicker, Divider, Tree } from 'antd';
+import { DatePicker, Divider, Spin, Tree } from 'antd';
+import { SwapRightOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
+import moment from 'moment';
 
 import './index.less';
 import { useWidgets } from '../../../utils'
@@ -11,12 +13,13 @@ import BasePanel from '../../../components/BasePanel';
 
 // import { graphics } from '../../../redux';
 
-const { RangePicker } = DatePicker;
-
-
 const defaultWidgets = {
     Container: styled.div`
     `,
+    SpinWrapper: styled.div`
+    `,
+    DatePickerWrapper: styled.div`
+    `
 };
 
 const treeData = [
@@ -110,7 +113,7 @@ const treeData = [
         children: [
             { title: '0-6-0-0', key: '0-6-0-0', selectable: false },
             { title: '0-6-0-1', key: '0-6-0-1', selectable: false },
-            { title: '0-6-0-2', key: '0-6-0-2' , selectable: false},
+            { title: '0-6-0-2', key: '0-6-0-2', selectable: false },
         ],
     },
     {
@@ -131,8 +134,8 @@ const treeData = [
 
         children: [
             { title: '0-8-0-0', key: '0-8-0-0', selectable: false },
-            { title: '0-8-0-1', key: '0-8-0-1' , selectable: false},
-            { title: '0-8-0-2', key: '0-8-0-2' , selectable: false},
+            { title: '0-8-0-1', key: '0-8-0-1', selectable: false },
+            { title: '0-8-0-2', key: '0-8-0-2', selectable: false },
         ],
     },
     {
@@ -141,9 +144,9 @@ const treeData = [
         checkable: false,
 
         children: [
-            { title: '0-9-0-0', key: '0-9-0-0' , selectable: false},
+            { title: '0-9-0-0', key: '0-9-0-0', selectable: false },
             { title: '0-9-0-1', key: '0-9-0-1', selectable: false },
-            { title: '0-9-0-2', key: '0-9-0-2' , selectable: false},
+            { title: '0-9-0-2', key: '0-9-0-2', selectable: false },
         ],
     },
     {
@@ -167,11 +170,53 @@ const LeftPanel = (props) => {
         className,
         defaultWidgets,
     );
-    const { Container } = widgets;
+    const { Container, SpinWrapper, DatePickerWrapper } = widgets;
 
     const [checkedKeys, setCheckedKeys] = useState([]);
-    const [expandedKeys, setExpandedKeys] = useState([])
+    const [expandedKeys, setExpandedKeys] = useState([]);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
 
+    useEffect(()=>{
+        console.log("🚀-fjf : startDate", startDate);
+        console.log("🚀-fjf : endDate", endDate);
+    }, [startDate, endDate])
+
+    const onStartDateChange = (date, dateString) => {
+        setStartDate(date);
+    }
+
+    const onEndDateChange = (date, dateString) => {
+        setEndDate(date);
+    }
+
+    const disabledDate = (current) => {
+    console.log("🚀-fjf : current", current);
+        return current && current < moment().endOf('day');
+    };
+
+    const renderDateRangePicker = () => {
+        return (
+            <DatePickerWrapper>
+                <DatePicker 
+                    value={startDate}
+                    suffixIcon={null}
+                    onChange={onStartDateChange}
+                    disabledDate={disabledDate}
+                />
+                <SwapRightOutlined />
+                <DatePicker value={endDate} suffixIcon={null} onChange={onEndDateChange}/>
+            </DatePickerWrapper>
+        )
+    }
+
+    // const renderEmpty = () => {
+    //     return (
+    //         <Empty />
+    //     )
+    // }
+
+    // tree相关方法
     const onCheck = (checkedKeysValue) => {
         setCheckedKeys(checkedKeysValue);
     };
@@ -181,9 +226,10 @@ const LeftPanel = (props) => {
         const newExpandedKeys = exist ? _.filter(expandedKeys, key => key !== keys[0]) : [...expandedKeys, keys[0]]
         setExpandedKeys(newExpandedKeys)
     };
+
     const onExpandHandler = (keys, info) => {
-        const {expanded, node: {key: nodeKey}} = info;
-        const newExpandedKeys = expanded ? [...expandedKeys,nodeKey] : _.filter(expandedKeys, key => key !== nodeKey);
+        const { expanded, node: { key: nodeKey } } = info;
+        const newExpandedKeys = expanded ? [...expandedKeys, nodeKey] : _.filter(expandedKeys, key => key !== nodeKey);
         setExpandedKeys(newExpandedKeys)
     };
 
@@ -193,34 +239,44 @@ const LeftPanel = (props) => {
             backgroundColor: '#aaa',
             borderRadius: '4px'
         }
-        return <div style={{...thumbStyle}} />
+        return <div style={{ ...thumbStyle }} />
+    }
+
+    const renderTree = () => {
+        const isFetching = false;
+        return !isFetching ?  (
+            <Scrollbars
+                className='Scrollbars-for-Tree'
+                renderThumbVertical={renderThumb}
+                autoHide
+                autoHideTimeout={500}
+            >
+                <Tree
+                    rootClassName="LeftPanel-CheckableTree"
+                    checkable
+                    blockNode
+                    selectable
+                    checkedKeys={checkedKeys}
+                    selectedKeys={[]}
+                    expandedKeys={expandedKeys}
+                    treeData={treeData}
+                    onCheck={onCheck}
+                    onSelect={onSelectHandler}
+                    onExpand={onExpandHandler}
+                />
+            </Scrollbars>
+        ) : <SpinWrapper>
+            <Spin />
+        </SpinWrapper>
     }
 
     return (
         <Container>
             <BasePanel title='病例列表' >
-                <RangePicker />
+                { renderDateRangePicker() }
                 <Divider />
-                <Scrollbars
-                    className='Scrollbars-for-Tree'
-                    renderThumbVertical={renderThumb}
-                    autoHide
-                    autoHideTimeout={500}
-                >
-                    <Tree
-                        rootClassName="LeftPanel-CheckableTree"
-                        checkable
-                        blockNode
-                        selectable
-                        checkedKeys={checkedKeys}
-                        selectedKeys={[]}
-                        expandedKeys={expandedKeys}
-                        treeData={treeData}
-                        onCheck={onCheck}
-                        onSelect={onSelectHandler}
-                        onExpand={onExpandHandler}
-                    />
-                </Scrollbars>
+                {/* { renderEmpty() } */}
+                { renderTree() }
             </BasePanel>
         </Container>
     )

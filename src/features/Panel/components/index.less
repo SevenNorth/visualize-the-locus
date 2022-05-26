@@ -4,12 +4,28 @@
     left: 2rem;
     width: 20rem;
     height: 35rem;
-    .ant-picker{
-        border: 1px solid #ccc;
-        width: 100%                                                                                      ;
-        .ant-picker-clear{
-            border-radius: 50%;
+    .DatePickerWrapper{
+        display: flex;
+        align-items: center;
+        .anticon-swap-right{
+            margin: 0 0.625rem;
         }
+        .ant-picker{
+            border: 1px solid #555;
+            width: 100%;
+            .ant-picker-clear{
+                border-radius: 50%;
+            }
+        }
+    }
+    .ant-divider-horizontal{
+        margin: 12px 0;
+    }
+    .SpinWrapper{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .ant-tree-treenode{
         .ant-tree-checkbox-checked, .ant-tree-checkbox{
