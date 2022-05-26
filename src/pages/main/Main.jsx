@@ -9,9 +9,7 @@ import FooterInfo from '../../components/FooterInfo';
 import fm from '../../redux';
 
 import ReactGA from 'react-ga';
-
-ReactGA.initialize('');
-ReactGA.pageview(window.location.pathname + window.location.search);
+import {useEffect} from 'react'
 
 const defaultWidgets = {
   Container: styled.div`
@@ -24,6 +22,12 @@ const className = 'MainPage'
 const Main = () => {
   const widgets = useWidgets(className, defaultWidgets);
   const view = fm.getFeature('VIEW');
+
+  useEffect(() => {
+    ReactGA.initialize('G-5V73ZG4TFD');
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, [])
+  
 
   const { Container } = widgets;
   return (
