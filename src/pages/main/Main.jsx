@@ -25,7 +25,7 @@ const Main = () => {
 
   useEffect(() => {
     ReactGA.initialize('');
-    ReactGA.pageview('/');
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }, [])
   
 
