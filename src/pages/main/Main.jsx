@@ -8,9 +8,6 @@ import LeftPanel from '../../features/Panel/components/LeftPanel';
 import FooterInfo from '../../components/FooterInfo';
 import fm from '../../redux';
 
-import ReactGA from 'react-ga';
-import {useEffect} from 'react'
-
 const defaultWidgets = {
   Container: styled.div`
     width: 100%;
@@ -21,13 +18,7 @@ const defaultWidgets = {
 const className = 'MainPage'
 const Main = () => {
   const widgets = useWidgets(className, defaultWidgets);
-  const view = fm.getFeature('VIEW');
-
-  useEffect(() => {
-    ReactGA.initialize('G-5V73ZG4TFD');
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  }, [])
-  
+  const view = fm.getFeature('VIEW');  
 
   const { Container } = widgets;
   return (
