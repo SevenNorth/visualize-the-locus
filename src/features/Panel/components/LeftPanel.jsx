@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { DatePicker, Divider, Spin, Tree } from 'antd';
 import { SwapRightOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
-import moment from 'moment';
 
 import './index.less';
 import { useWidgets } from '../../../utils'
@@ -182,17 +181,20 @@ const LeftPanel = (props) => {
         console.log("🚀-fjf : endDate", endDate);
     }, [startDate, endDate])
 
-    const onStartDateChange = (date, dateString) => {
+    const onStartDateChange = (date) => {
         setStartDate(date);
     }
 
-    const onEndDateChange = (date, dateString) => {
+    const onEndDateChange = (date) => {
         setEndDate(date);
     }
 
-    const disabledDate = (current) => {
-    console.log("🚀-fjf : current", current);
-        return current && current < moment().endOf('day');
+    const startDisabledDate = (current) => {
+        return endDate && current && current.isAfter(endDate) ;
+    };
+
+    const endDisabledDate = (current) => {
+        return startDate && current && current.isBefore(startDate) ;
     };
 
     const renderDateRangePicker = () => {
@@ -202,10 +204,15 @@ const LeftPanel = (props) => {
                     value={startDate}
                     suffixIcon={null}
                     onChange={onStartDateChange}
-                    disabledDate={disabledDate}
+                    disabledDate={startDisabledDate}
                 />
                 <SwapRightOutlined />
-                <DatePicker value={endDate} suffixIcon={null} onChange={onEndDateChange}/>
+                <DatePicker 
+                    value={endDate} 
+                    suffixIcon={null} 
+                    onChange={onEndDateChange}
+                    disabledDate={endDisabledDate}
+                />
             </DatePickerWrapper>
         )
     }
