@@ -4,7 +4,6 @@ import locale from 'antd/lib/locale/zh_CN';
 import { ConfigProvider } from 'antd';
 
 import { useWidgets } from '../../utils'
-import LeftPanel from '../../features/Panel/components/LeftPanel';
 import FooterInfo from '../../components/FooterInfo';
 import fm from '../../redux';
 
@@ -18,14 +17,15 @@ const defaultWidgets = {
 const className = 'MainPage'
 const Main = () => {
   const widgets = useWidgets(className, defaultWidgets);
-  const view = fm.getFeature('VIEW');  
+  const view = fm.getFeature('VIEW'); 
+  const panel = fm.getFeature('PANEL');
 
   const { Container } = widgets;
   return (
     <ConfigProvider locale={locale}>
       <Container>
         <view.components.BaseView />
-        <LeftPanel />
+        <panel.components.LeftPanel />
         <FooterInfo />
       </Container>
   </ConfigProvider>

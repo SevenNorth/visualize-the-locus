@@ -16,7 +16,7 @@ class PanelFeature extends BaseFeature {
 
     static defaultProps = {};
 
-    getTracksList;
+    getTracksListRequest;
 
     constructor(props){
         super(props)
@@ -26,7 +26,7 @@ class PanelFeature extends BaseFeature {
             getTracksListRequest: {
                 FeatureClass: Request,
                 props: {
-                    requsetFn: this.api.getTracksList.bind(this.api)
+                    requestFn: this.api.getTracksList.bind(this.api)
                 }
             },
         })

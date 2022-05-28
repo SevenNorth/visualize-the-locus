@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react'
 import _ from 'lodash';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { DatePicker, Divider, Spin, Tree } from 'antd';
+import { DatePicker, Divider, Spin, Tree, Empty } from 'antd';
 import { SwapRightOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import './index.less';
-import { useWidgets } from '../../../utils'
+import { useWidgets, getTree } from '../../../utils'
 import BasePanel from '../../../components/BasePanel';
-
-// import { graphics } from '../../../redux';
 
 const defaultWidgets = {
     Container: styled.div`
@@ -21,145 +19,6 @@ const defaultWidgets = {
     `
 };
 
-const treeData = [
-    {
-        title: '0-0',
-        key: '0-0',
-        checkable: false,
-        children: [
-            {
-                title: '0-0-0',
-                key: '0-0-0',
-                checkable: false,
-                children: [
-                    { title: '0-0-0-0', key: '0-0-0-0', selectable: false },
-                    { title: '0-0-0-1', key: '0-0-0-1', selectable: false },
-                    { title: '0-0-0-2', key: '0-0-0-2', selectable: false },
-                ],
-            },
-            {
-                title: '0-0-1',
-                key: '0-0-1',
-                checkable: false,
-
-                children: [
-                    { title: '0-0-1-0', key: '0-0-1-0', selectable: false },
-                    { title: '0-0-1-1', key: '0-0-1-1', selectable: false },
-                    { title: '0-0-1-2', key: '0-0-1-2', selectable: false },
-                ],
-            },
-            {
-                title: '0-0-2',
-                key: '0-0-2',
-                checkable: false,
-            },
-        ],
-    },
-    {
-        title: '0-1',
-        key: '0-1',
-        checkable: false,
-
-        children: [
-            { title: '0-1-0-0', key: '0-1-0-0', selectable: false },
-            { title: '0-1-0-1', key: '0-1-0-1', selectable: false },
-            { title: '0-1-0-2', key: '0-1-0-2', selectable: false },
-        ],
-    },
-    {
-        title: '0-2',
-        key: '0-2',
-        checkable: false,
-    },
-    {
-        title: '0-3',
-        key: '0-3',
-        checkable: false,
-
-        children: [
-            { title: '0-3-0-0', key: '0-3-0-0', selectable: false },
-            { title: '0-3-0-1', key: '0-3-0-1', selectable: false },
-            { title: '0-3-0-2', key: '0-3-0-2', selectable: false },
-        ],
-    },
-    {
-        title: '0-4',
-        key: '0-4',
-        checkable: false,
-
-        children: [
-            { title: '0-4-0-0', key: '0-4-0-0', selectable: false },
-            { title: '0-4-0-1', key: '0-4-0-1', selectable: false },
-            { title: '0-4-0-2', key: '0-4-0-2', selectable: false },
-        ],
-    },
-    {
-        title: '0-5',
-        key: '0-5',
-        checkable: false,
-
-        children: [
-            { title: '0-5-0-0', key: '0-5-0-0', selectable: false },
-            { title: '0-5-0-1', key: '0-5-0-1', selectable: false },
-            { title: '0-5-0-2', key: '0-5-0-2', selectable: false },
-        ],
-    },
-    {
-        title: '0-6',
-        key: '0-6',
-        checkable: false,
-
-        children: [
-            { title: '0-6-0-0', key: '0-6-0-0', selectable: false },
-            { title: '0-6-0-1', key: '0-6-0-1', selectable: false },
-            { title: '0-6-0-2', key: '0-6-0-2', selectable: false },
-        ],
-    },
-    {
-        title: '0-7',
-        key: '0-7',
-        checkable: false,
-
-        children: [
-            { title: '0-7-0-0', key: '0-7-0-0', selectable: false },
-            { title: '0-7-0-1', key: '0-7-0-1', selectable: false },
-            { title: '0-7-0-2', key: '0-7-0-2', selectable: false },
-        ],
-    },
-    {
-        title: '0-8',
-        key: '0-8',
-        checkable: false,
-
-        children: [
-            { title: '0-8-0-0', key: '0-8-0-0', selectable: false },
-            { title: '0-8-0-1', key: '0-8-0-1', selectable: false },
-            { title: '0-8-0-2', key: '0-8-0-2', selectable: false },
-        ],
-    },
-    {
-        title: '0-9',
-        key: '0-9',
-        checkable: false,
-
-        children: [
-            { title: '0-9-0-0', key: '0-9-0-0', selectable: false },
-            { title: '0-9-0-1', key: '0-9-0-1', selectable: false },
-            { title: '0-9-0-2', key: '0-9-0-2', selectable: false },
-        ],
-    },
-    {
-        title: '0-A',
-        key: '0-A',
-        checkable: false,
-
-        children: [
-            { title: '0-A-0-0', key: '0-A-0-0', selectable: false },
-            { title: '0-A-0-1', key: '0-A-0-1', selectable: false },
-            { title: '0-A-0-2', key: '0-A-0-2', selectable: false },
-        ],
-    },
-];
 
 const className = 'LeftPanel';
 
@@ -170,16 +29,40 @@ const LeftPanel = (props) => {
         defaultWidgets,
     );
     const { Container, SpinWrapper, DatePickerWrapper } = widgets;
+    const { getTracksList, flatTrackList, isFetching, clearTracksList } = props;
 
     const [checkedKeys, setCheckedKeys] = useState([]);
     const [expandedKeys, setExpandedKeys] = useState([]);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [treeData, setTreeData] = useState(null);
 
-    useEffect(()=>{
-        console.log("🚀-fjf : startDate", startDate);
-        console.log("🚀-fjf : endDate", endDate);
-    }, [startDate, endDate])
+    useEffect(() => {
+        if (startDate || endDate) {
+            const startDateStr = startDate?.format('YYYY-MM-DD');
+            const endDateStr = endDate?.format('YYYY-MM-DD');
+            getTracksList({
+                startDate: startDateStr,
+                endDate: endDateStr,
+            })
+        }
+        if (!startDate && !endDate) {
+            clearTracksList()
+        }
+
+        return () => {
+            clearTracksList()
+        }
+    }, [startDate, endDate, getTracksList, clearTracksList])
+
+    useEffect(() => {
+        if(flatTrackList){
+            const newTreeData = getTree('-1', flatTrackList);
+            console.log("🚀-fjf : newTreeData", newTreeData);
+            setTreeData(newTreeData);
+        }
+    }, [flatTrackList])
+
 
     const onStartDateChange = (date) => {
         setStartDate(date);
@@ -190,26 +73,26 @@ const LeftPanel = (props) => {
     }
 
     const startDisabledDate = (current) => {
-        return endDate && current && current.isAfter(endDate) ;
+        return endDate && current && current.isAfter(endDate);
     };
 
     const endDisabledDate = (current) => {
-        return startDate && current && current.isBefore(startDate) ;
+        return startDate && current && current.isBefore(startDate);
     };
 
     const renderDateRangePicker = () => {
         return (
             <DatePickerWrapper>
-                <DatePicker 
+                <DatePicker
                     value={startDate}
                     suffixIcon={null}
                     onChange={onStartDateChange}
                     disabledDate={startDisabledDate}
                 />
                 <SwapRightOutlined />
-                <DatePicker 
-                    value={endDate} 
-                    suffixIcon={null} 
+                <DatePicker
+                    value={endDate}
+                    suffixIcon={null}
                     onChange={onEndDateChange}
                     disabledDate={endDisabledDate}
                 />
@@ -217,11 +100,14 @@ const LeftPanel = (props) => {
         )
     }
 
-    // const renderEmpty = () => {
-    //     return (
-    //         <Empty />
-    //     )
-    // }
+    const renderEmpty = () => {
+        if (treeData) {
+            return null;
+        }
+        return (
+            <Empty />
+        )
+    }
 
     // tree相关方法
     const onCheck = (checkedKeysValue) => {
@@ -250,8 +136,7 @@ const LeftPanel = (props) => {
     }
 
     const renderTree = () => {
-        const isFetching = false;
-        return !isFetching ?  (
+        return !isFetching ? (
             <Scrollbars
                 className='Scrollbars-for-Tree'
                 renderThumbVertical={renderThumb}
@@ -280,23 +165,38 @@ const LeftPanel = (props) => {
     return (
         <Container>
             <BasePanel title='病例列表' >
-                { renderDateRangePicker() }
+                {renderDateRangePicker()}
                 <Divider />
-                {/* { renderEmpty() } */}
-                { renderTree() }
+                {renderEmpty()}
+                {renderTree()}
             </BasePanel>
         </Container>
     )
 }
 
-const connectedLeftPanel = connect(
-    state => {
-        return {}
-    },
-    dispatch => {
-        return {
+const connectLeftPanel = (panelFeature, GraphicsFeature) => {
+    return connect(
+        () => {
+            const panelState = panelFeature.getOwnState();
+            const { getTracksListRequest: { status: { isFetching }, data: flatTrackList } } = panelState;
+            return {
+                isFetching,
+                flatTrackList
+            }
+        },
+        () => {
+            return {
+                getTracksList: _.debounce((pramas) => {
+                    panelFeature.getTracksListRequest.execute(pramas);
+                }, 500),
+                clearTracksList: () => {
+                    panelFeature.getTracksListRequest.clear();
+                },
+            }
         }
-    }
-)(LeftPanel)
+    )(LeftPanel);
+}
 
-export default React.memo(connectedLeftPanel)
+export { connectLeftPanel }
+
+export default React.memo(LeftPanel)

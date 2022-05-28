@@ -61,6 +61,9 @@ class BaseFeature{
             getState: store.getState,
             feature: this,
         };
+        _.each(this.subFeatures, fea => {
+            fea.init(store);
+        });
         if (this.props?.genComponents) {
             const componentsMap = this.props.genComponents(this);
             if (componentsMap) {

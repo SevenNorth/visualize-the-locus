@@ -6,7 +6,7 @@ import genViewComponents from '../features/BaseView/components/genComponents';
 import LayersFeature from '../features/Layers/LayersFeature';
 import GraphicsFeature from '../features/Graphics/GraphicsFeature';
 import PanelFeature from '../features/Panel/PanelFeature';
-
+import genPanelComponents from '../features/Panel/components/genComponents';
 const view = new ViewFeature({
     key: 'VIEW',
     initialState: {
@@ -31,10 +31,17 @@ const graphics = new GraphicsFeature({
 });
 const panel = new PanelFeature({
     key: 'PANEL',
+    apiProps: {
+        mock: true,
+        baseUrl: '/tracks',
+        routes: {
+            getTracksList: 'getTracksList',
+        },
+    }
 })
 
 genViewComponents(view, layers, graphics)
-
+genPanelComponents(panel, graphics)
 const fm = new FeatureManager()
 
 fm.refreshFeatures({

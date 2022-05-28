@@ -1,4 +1,4 @@
-import _ from 'lodash/core';
+import _ from 'lodash';
 import produce from 'immer';
 import BaseFeature from './BaseFeature';
 import { getInitialRequestState, getInitialError} from './functions'
