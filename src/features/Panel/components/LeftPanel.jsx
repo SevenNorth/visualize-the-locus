@@ -58,10 +58,14 @@ const LeftPanel = (props) => {
     useEffect(() => {
         if(flatTrackList){
             const newTreeData = getTree('-1', flatTrackList);
-            console.log("🚀-fjf : newTreeData", newTreeData);
             setTreeData(newTreeData);
         }
     }, [flatTrackList])
+
+    useEffect(() => {
+        console.log("🚀-fjf : checkedKeys", checkedKeys);
+    }, [checkedKeys])
+    
 
 
     const onStartDateChange = (date) => {
@@ -114,10 +118,15 @@ const LeftPanel = (props) => {
         setCheckedKeys(checkedKeysValue);
     };
 
-    const onSelectHandler = (keys) => {
-        const exist = _.includes(expandedKeys, keys[0])
-        const newExpandedKeys = exist ? _.filter(expandedKeys, key => key !== keys[0]) : [...expandedKeys, keys[0]]
-        setExpandedKeys(newExpandedKeys)
+    const onSelectHandler = (keys, { selectedNodes }) => {
+        const existExpanded = _.includes(expandedKeys, keys[0]);
+        const newExpandedKeys = existExpanded ? _.filter(expandedKeys, key => key !== keys[0]) : [...expandedKeys, keys[0]];
+        setExpandedKeys(newExpandedKeys);
+        if(selectedNodes[0].track){
+            const existCkecked = _.includes(checkedKeys, keys[0]);
+            const newCheckedKeys = existCkecked ? _.filter(checkedKeys, key => key !== keys[0]) : [...checkedKeys, keys[0]];
+            setCheckedKeys(newCheckedKeys);
+        }
     };
 
     const onExpandHandler = (keys, info) => {

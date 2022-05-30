@@ -53,7 +53,7 @@ class Api extends BaseApi {
                     const trackDateNode = {
                         title: trackDate.date,
                         preKey: patientNode.key,
-                        key: patientNode.key + trackDate.date + '-track-date-node',
+                        key: patientNode.key + '-' + trackDate.date + '-track-date-node',
                         sourceKey: dateNode.key,
                         checkable: true,
                     };
@@ -63,7 +63,7 @@ class Api extends BaseApi {
                         const trackNode = {
                             title,
                             preKey: trackDateNode.key,
-                            key: trackDateNode.key + track.time + title + '-track-detail-node',
+                            key: trackDateNode.key + (track.time || '') + title + '-track-detail-node',
                             sourceKey: dateNode.key,
                             checkable: true,
                             track: track,
