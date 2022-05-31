@@ -30,7 +30,7 @@ const LeftPanel = (props) => {
         defaultWidgets,
     );
     const { Container, SpinWrapper, DatePickerWrapper } = widgets;
-    const { getTracksList, flatTrackList, isFetching, clearTracksList, addGraphics } = props;
+    const { getTracksList, flatTrackList, isFetching, clearTracksList, addGraphics, graphics, removeGraphics } = props;
 
     const [checkedKeys, setCheckedKeys] = useState([]);
     const [expandedKeys, setExpandedKeys] = useState([]);
@@ -57,20 +57,23 @@ const LeftPanel = (props) => {
     }, [startDate, endDate, getTracksList, clearTracksList])
 
     useEffect(() => {
-        if(flatTrackList){
+        if (flatTrackList) {
             const newTreeData = getTree('-1', flatTrackList);
             setTreeData(newTreeData);
         }
     }, [flatTrackList])
 
     useEffect(() => {
-        const trackDetailNodeKeys = _.filter(checkedKeys, checkedKey => _.endsWith(checkedKey, trackDetailNodeFlag))
-        const trackDetailNodes = _.filter(flatTrackList,track => _.includes(trackDetailNodeKeys, track.key))
-        console.log("🚀-fjf : trackDetailNodes", trackDetailNodes)
-        const graphicsList = []
-        _.each(trackDetailNodes, trackDetailNode => {
-            const {track} = trackDetailNode;
-            if(track.type === 'point'){
+        const trackDetailNodeKeys = _.filter(checkedKeys, checkedKey => _.endsWith(checkedKey, trackDetailNodeFlag));
+        const graphicsIds = _.map(graphics, 'attributes.id');
+        const willAdd = _.difference(trackDetailNodeKeys, graphicsIds);
+        const willRm = _.difference(graphicsIds, trackDetailNodeKeys);
+
+        const willAddTrackDetailNodes = _.filter(flatTrackList, track => _.includes(willAdd, track.key));
+        const willAddGraphicsList = []
+        _.each(willAddTrackDetailNodes, trackDetailNode => {
+            const { track } = trackDetailNode;
+            if (track.type === 'point') {
                 const pointGraphics = {
                     attributes: {
                         id: trackDetailNode.key,
@@ -82,8 +85,8 @@ const LeftPanel = (props) => {
                         y: track.y,
                     },
                 }
-                graphicsList.push(pointGraphics);
-            }else if(track.type === 'polyline'){
+                willAddGraphicsList.push(pointGraphics);
+            } else if (track.type === 'polyline') {
                 const polylineGraphics = {
                     attributes: {
                         id: trackDetailNode.key,
@@ -95,13 +98,28 @@ const LeftPanel = (props) => {
                             [track.path[0].x, track.path[0].y],
                             [track.path[1].x, track.path[1].y]
                         ]
+                    },
+                    symbol: {
+                        type: "simple-line",
+                        color: "red",
+                        width: 1.5,
+                        marker: {
+                            style: "arrow",
+                            color: "red",
+                            placement: "end"
+                        }
                     }
                 }
-                graphicsList.push(polylineGraphics)
-            } 
+                willAddGraphicsList.push(polylineGraphics)
+            }
         })
-        addGraphics(graphicsList)
-    }, [addGraphics, checkedKeys, flatTrackList])
+        if (willAddGraphicsList.length) {
+            addGraphics(willAddGraphicsList);
+        }
+        if (willRm.length) {
+            removeGraphics(willRm);
+        }
+    }, [addGraphics, checkedKeys, flatTrackList, graphics, removeGraphics])
 
     const onStartDateChange = (date) => {
         setStartDate(date);
@@ -157,7 +175,7 @@ const LeftPanel = (props) => {
         const existExpanded = _.includes(expandedKeys, keys[0]);
         const newExpandedKeys = existExpanded ? _.filter(expandedKeys, key => key !== keys[0]) : [...expandedKeys, keys[0]];
         setExpandedKeys(newExpandedKeys);
-        if(selectedNodes[0].track){
+        if (selectedNodes[0].track) {
             const existCkecked = _.includes(checkedKeys, keys[0]);
             const newCheckedKeys = existCkecked ? _.filter(checkedKeys, key => key !== keys[0]) : [...checkedKeys, keys[0]];
             setCheckedKeys(newCheckedKeys);
@@ -222,10 +240,13 @@ const connectLeftPanel = (panelFeature, graphicsFeature) => {
     return connect(
         () => {
             const panelState = panelFeature.getOwnState();
+            const graphicsState = graphicsFeature.getOwnState();
             const { getTracksListRequest: { status: { isFetching }, data: flatTrackList } } = panelState;
+            const { graphics } = graphicsState;
             return {
                 isFetching,
-                flatTrackList
+                flatTrackList,
+                graphics
             }
         },
         () => {
@@ -238,6 +259,9 @@ const connectLeftPanel = (panelFeature, graphicsFeature) => {
                 },
                 addGraphics: (graphics) => {
                     graphicsFeature.add(graphics);
+                },
+                removeGraphics: (graphics) => {
+                    graphicsFeature.remove(graphics);
                 }
             }
         }
