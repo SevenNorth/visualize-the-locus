@@ -21,6 +21,7 @@ const defaultWidgets = {
 
 
 const className = 'LeftPanel';
+const trackDetailNodeFlag = 'track-detail-node';
 
 const LeftPanel = (props) => {
 
@@ -29,7 +30,7 @@ const LeftPanel = (props) => {
         defaultWidgets,
     );
     const { Container, SpinWrapper, DatePickerWrapper } = widgets;
-    const { getTracksList, flatTrackList, isFetching, clearTracksList } = props;
+    const { getTracksList, flatTrackList, isFetching, clearTracksList, addGraphics } = props;
 
     const [checkedKeys, setCheckedKeys] = useState([]);
     const [expandedKeys, setExpandedKeys] = useState([]);
@@ -63,10 +64,44 @@ const LeftPanel = (props) => {
     }, [flatTrackList])
 
     useEffect(() => {
-        console.log("🚀-fjf : checkedKeys", checkedKeys);
-    }, [checkedKeys])
-    
-
+        const trackDetailNodeKeys = _.filter(checkedKeys, checkedKey => _.endsWith(checkedKey, trackDetailNodeFlag))
+        const trackDetailNodes = _.filter(flatTrackList,track => _.includes(trackDetailNodeKeys, track.key))
+        console.log("🚀-fjf : trackDetailNodes", trackDetailNodes)
+        const graphicsList = []
+        _.each(trackDetailNodes, trackDetailNode => {
+            const {track} = trackDetailNode;
+            if(track.type === 'point'){
+                const pointGraphics = {
+                    attributes: {
+                        id: trackDetailNode.key,
+                        address: trackDetailNode.title,
+                    },
+                    geometry: {
+                        type: 'point',
+                        x: track.x,
+                        y: track.y,
+                    },
+                }
+                graphicsList.push(pointGraphics);
+            }else if(track.type === 'polyline'){
+                const polylineGraphics = {
+                    attributes: {
+                        id: trackDetailNode.key,
+                        address: trackDetailNode.title,
+                    },
+                    geometry: {
+                        type: 'polyline',
+                        paths: [
+                            [track.path[0].x, track.path[0].y],
+                            [track.path[1].x, track.path[1].y]
+                        ]
+                    }
+                }
+                graphicsList.push(polylineGraphics)
+            } 
+        })
+        addGraphics(graphicsList)
+    }, [addGraphics, checkedKeys, flatTrackList])
 
     const onStartDateChange = (date) => {
         setStartDate(date);
@@ -183,7 +218,7 @@ const LeftPanel = (props) => {
     )
 }
 
-const connectLeftPanel = (panelFeature, GraphicsFeature) => {
+const connectLeftPanel = (panelFeature, graphicsFeature) => {
     return connect(
         () => {
             const panelState = panelFeature.getOwnState();
@@ -201,6 +236,9 @@ const connectLeftPanel = (panelFeature, GraphicsFeature) => {
                 clearTracksList: () => {
                     panelFeature.getTracksListRequest.clear();
                 },
+                addGraphics: (graphics) => {
+                    graphicsFeature.add(graphics);
+                }
             }
         }
     )(LeftPanel);
