@@ -7,8 +7,7 @@ const baseCfg = {
         wkid: 3857, // 同102100 即WGS-84椭球，web墨卡托投影
         // wkid: 4326
     },
-    basemaps: [
-        {
+    basemaps: [{
             id: 'geoq-color',
             title: '彩色版',
             thumbnail: color,
@@ -56,30 +55,30 @@ const baseCfg = {
         },
     },
     viewpoint: {
+        rotation: 0.3804580234115633,
+        scale: 98150.53776707186,
         targetGeometry: {
             spatialReference: {
-                latestWkid: 3857,
-                wkid: 102100
+                wkid: 3857
             },
-            x: 11584328.438823506,
-            y: 3588303.2091660225,
-            z: 497.4389120414853,
+            x: 11855399.53791022,
+            y: 3444822.8975759917,
+            z: 313.77231406606734,
             type: 'point'
         },
         camera: {
             position: {
                 spatialReference: {
-                    latestWkid: 3857,
-                    wkid: 102100
+                    wkid: 3857
                 },
-                x: 11584328.438823506,
-                y: 3587993.191848825,
-                z: 31206.609455426224
+                x: 11855415.005324503,
+                y: 3442493.7975799907,
+                z: 35248.6256658379
             },
-            heading: 0,
-            tilt: 0.4976056235226675
+            heading: 359.61954197658844,
+            tilt: 3.320072532424338
         },
-    }
+    },
 }
 
 export default baseCfg;
